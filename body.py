@@ -19,3 +19,12 @@ class HardBody(Body):
         super().__init__()
         self.name = 'Hard Body'
         self.hp = 5
+
+
+class LightBody(Body):
+
+    def __init__(self):
+        super().__init__()
+        self.name = 'Light Body'
+        self.hp = 3
+        self.movement = 1

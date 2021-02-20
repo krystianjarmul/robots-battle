@@ -13,3 +13,12 @@ def test_hard_body_attributes():
     assert hard_body.name == 'Hard Body'
     assert hard_body.hp == 5
     assert isinstance(hard_body, body.Body)
+
+
+def test_light_body_attributes():
+    light_body = body.LightBody()
+    assert light_body.name == 'Light Body'
+    assert light_body.hp == 3
+    assert light_body.movement == 1
+
+
