@@ -25,3 +25,11 @@ def test_set_a_blue_team_robot():
     arena.set_blue_team()
 
     assert 'x' in arena.board[0]
+
+
+def test_set_a_red_team_robot():
+    arena = Arena()
+
+    arena.set_red_team()
+
+    assert 'x' in arena.board[-1]
