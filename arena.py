@@ -9,3 +9,5 @@ class Arena:
             [0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0],
         ]
+        self.robot = 'x'
+        self.item = '*'
