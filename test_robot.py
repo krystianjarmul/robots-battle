@@ -12,9 +12,8 @@ def test_robot_belongs_to_blue_or_read_team():
 
 def test_robot_at_start_has_default_attributes():
     robot = Robot(Team.BLUE)
-    assert robot.body == body.SimpleBody()
-    assert robot.weapon == weapon.BasicShot()
+    assert robot.bodies == [body.SimpleBody(), ]
+    assert robot.weapons == [weapon.BasicShot(), ]
     assert robot.hp == 2
     assert robot.movement == 1
-
-
+    assert robot.weapon_slots == 1
