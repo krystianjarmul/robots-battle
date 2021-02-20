@@ -4,6 +4,14 @@ class Weapon:
         directions: List[int]
         range: List[int]
 
+    def __eq__(self, other):
+        if not isinstance(other, Weapon):
+            return False
+        return other.range == self.range
+
+    def __hash__(self):
+        return hash(self.range)
+
 
 class BasicShot(Weapon):
 

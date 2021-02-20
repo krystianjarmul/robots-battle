@@ -4,6 +4,14 @@ class Body:
         self.name: str
         self.hp: str
 
+    def __eq__(self, other):
+        if not isinstance(other, Body):
+            return False
+        return other.name == self.name
+
+    def __hash__(self):
+        return hash(self.name)
+
 
 class SimpleBody(Body):
 
