@@ -13,3 +13,7 @@ def test_laser_attributes():
     assert laser.range == [0, 5, 0, 0, 0, 0, 0, 0, 0]
 
 
+def test_sword_attributes():
+    sword = weapon.Sword()
+    assert sword.directions == [1, 1, 1, 0, 0, 0, 0, 0, 0]
+    assert sword.range == [1, 1, 1, 0, 0, 0, 0, 0, 0]

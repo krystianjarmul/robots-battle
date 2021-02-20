@@ -20,3 +20,10 @@ class Laser(Weapon):
         self.directions = [0, 1, 0, 0, 0, 0, 0, 0, 0]
         self.range = [0, 5, 0, 0, 0, 0, 0, 0, 0]
 
+
+class Sword(Weapon):
+
+    def __init__(self):
+        super().__init__()
+        self.directions = [1, 1, 1, 0, 0, 0, 0, 0, 0]
+        self.range = [1, 1, 1, 0, 0, 0, 0, 0, 0]
