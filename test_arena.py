@@ -19,7 +19,7 @@ def test_arena_object_symbol():
     assert arena.item == '*'
 
 
-def test_set_a_blue_team_robot():
+def test_sets_a_blue_team_robot_its_starting_area():
     arena = Arena()
 
     arena.set_blue_team()
@@ -27,9 +27,17 @@ def test_set_a_blue_team_robot():
     assert 'x' in arena.board[0]
 
 
-def test_set_a_red_team_robot():
+def test_sets_a_red_team_robot_in_its_starting_area():
     arena = Arena()
 
     arena.set_red_team()
 
     assert 'x' in arena.board[-1]
+
+
+def test_sets_deactivated_robots_in_battleground():
+    arena = Arena()
+
+    arena.set_deactivated_robots()
+
+    assert sum([row.count('x') for row in arena.board]) == 8
