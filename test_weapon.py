@@ -17,3 +17,9 @@ def test_sword_attributes():
     sword = weapon.Sword()
     assert sword.directions == [1, 1, 1, 0, 0, 0, 0, 0, 0]
     assert sword.range == [1, 1, 1, 0, 0, 0, 0, 0, 0]
+
+
+def test_explosion_attributes():
+    explosion = weapon.Explosion()
+    assert explosion.directions == [1, 1, 1, 1, 0, 1, 1, 1, 1]
+    assert explosion.range == [1, 1, 1, 1, 0, 1, 1, 1, 1]
