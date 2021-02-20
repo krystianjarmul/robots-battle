@@ -28,3 +28,12 @@ class LightBody(Body):
         self.name = 'Light Body'
         self.hp = 3
         self.movement = 1
+
+
+class BattleBody(Body):
+
+    def __init__(self):
+        super().__init__()
+        self.name = 'Battle Body'
+        self.hp = 2
+        self.adds_slot = True

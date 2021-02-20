@@ -22,3 +22,8 @@ def test_light_body_attributes():
     assert light_body.movement == 1
 
 
+def test_battle_body_attributes():
+    battle_body = body.BattleBody()
+    assert battle_body.name == 'Battle Body'
+    assert battle_body.hp == 2
+    assert battle_body.adds_slot
