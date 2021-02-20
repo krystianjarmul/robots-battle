@@ -54,4 +54,6 @@ class Arena:
             self.board[pos[0] - 1][pos[1]] = robot
         elif move.name == 'DOWN':
             self.board[pos[0] + 1][pos[1]] = robot
+        elif move.name == 'LEFT':
+            self.board[pos[0]][pos[1] - 1] = robot
         self.board[pos[0]][pos[1]] = 0
