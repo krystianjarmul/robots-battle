@@ -89,3 +89,14 @@ def test_move_left_successfully():
     assert arena.board[2][2] == 'x'
     assert arena.board[2][3] == 0
 
+
+def test_move_right_successfully():
+    arena = Arena()
+
+    set_robot_in_center(arena.board)
+
+    arena.move((2, 3), Move.RIGHT)
+
+    assert arena.board[2][4] == 'x'
+    assert arena.board[2][3] == 0
+
