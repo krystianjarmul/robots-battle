@@ -35,9 +35,17 @@ def test_sets_a_red_team_robot_in_its_starting_area():
     assert 'x' in arena.board[-1]
 
 
-def test_sets_deactivated_robots_in_battleground():
+def test_sets_8_deactivated_robots_in_battleground():
     arena = Arena()
 
     arena.set_deactivated_robots()
 
     assert sum([row.count('x') for row in arena.board]) == 8
+
+
+def test_init_sets_all_robots_on_board():
+    arena = Arena()
+
+    arena.init()
+
+    assert sum([row.count('x') for row in arena.board]) == 10

@@ -34,6 +34,12 @@ class Arena:
                 battleground[row][idx] = 'x'
                 break
 
+    def init(self):
+        self.set_blue_team()
+        self.set_red_team()
+        self.set_deactivated_robots()
+
+
 
 
 
