@@ -66,3 +66,14 @@ def test_move_up_successfully():
 
     assert arena.board[1][3] == 'x'
     assert arena.board[2][3] == 0
+
+
+def test_move_down_successfully():
+    arena = Arena()
+
+    set_robot_in_center(arena.board)
+
+    arena.move((2, 3), Move.DOWN)
+
+    assert arena.board[3][3] == 'x'
+    assert arena.board[2][3] == 0
