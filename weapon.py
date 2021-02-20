@@ -11,3 +11,12 @@ class BasicShot(Weapon):
         super().__init__()
         self.directions = [0, 1, 0, 0, 0, 0, 0, 0, 0]
         self.range = [0, 2, 0, 0, 0, 0, 0, 0, 0]
+
+
+class Laser(Weapon):
+
+    def __init__(self):
+        super().__init__()
+        self.directions = [0, 1, 0, 0, 0, 0, 0, 0, 0]
+        self.range = [0, 5, 0, 0, 0, 0, 0, 0, 0]
+
