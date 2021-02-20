@@ -49,13 +49,30 @@ class Arena:
         self.set_deactivated_robots()
 
     def move(self, pos: Tuple[int, int], move: Move):
-        robot = self.board[pos[0]][pos[1]]
         if move.name == 'UP':
-            self.board[pos[0] - 1][pos[1]] = robot
+            dst = pos[0] - 1
+            if dst < 0:
+                dst = 0
+            self.board[pos[0]][pos[1]] = 0
+            self.board[dst][pos[1]] = 'x'
+
         elif move.name == 'DOWN':
-            self.board[pos[0] + 1][pos[1]] = robot
+            dst = pos[0] + 1
+            if dst > 5:
+                dst = 5
+            self.board[pos[0]][pos[1]] = 0
+            self.board[dst][pos[1]] = 'x'
+
         elif move.name == 'LEFT':
-            self.board[pos[0]][pos[1] - 1] = robot
+            dst = pos[1] - 1
+            if dst < 0:
+                dst = 0
+            self.board[pos[0]][pos[1]] = 0
+            self.board[pos[0]][dst] = 'x'
+
         elif move.name == 'RIGHT':
-            self.board[pos[0]][pos[1] + 1] = robot
-        self.board[pos[0]][pos[1]] = 0
+            dst = pos[1] + 1
+            if dst > 5:
+                dst = 5
+            self.board[pos[0]][pos[1]] = 0
+            self.board[pos[0]][dst] = 'x'
