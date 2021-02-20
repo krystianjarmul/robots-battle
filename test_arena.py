@@ -1,4 +1,10 @@
-from arena import Arena
+import random
+
+from arena import Arena, Move
+
+
+def set_robot_in_center(board):
+    board[2][3] = 'x'
 
 
 def test_arena_is_square_6x6():
@@ -49,3 +55,14 @@ def test_init_sets_all_robots_on_board():
     arena.init()
 
     assert sum([row.count('x') for row in arena.board]) == 10
+
+
+def test_move_up_successfully():
+    arena = Arena()
+
+    set_robot_in_center(arena.board)
+
+    arena.move((2, 3), Move.UP)
+
+    assert arena.board[1][3] == 'x'
+    assert arena.board[2][3] == 0

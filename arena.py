@@ -1,4 +1,13 @@
 import random
+import enum
+from typing import Tuple
+
+
+class Move(enum.Enum):
+    UP = 0
+    RIGHT = 1
+    DOWN = 2
+    LEFT = 3
 
 
 class Arena:
@@ -39,7 +48,8 @@ class Arena:
         self.set_red_team()
         self.set_deactivated_robots()
 
-
-
-
-
+    def move(self, pos: Tuple[int, int], move: Move):
+        robot = self.board[pos[0]][pos[1]]
+        if move.name == 'UP':
+            self.board[pos[0] - 1][pos[1]] = robot
+        self.board[pos[0]][pos[1]] = 0
