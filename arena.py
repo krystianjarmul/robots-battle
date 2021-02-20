@@ -1,3 +1,6 @@
+import random
+
+
 class Arena:
 
     def __init__(self):
@@ -11,3 +14,7 @@ class Arena:
         ]
         self.robot = 'x'
         self.item = '*'
+
+    def set_blue_team(self):
+        idx = random.randint(0, 5)
+        self.board[0][idx] = 'x'

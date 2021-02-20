@@ -18,3 +18,10 @@ def test_arena_object_symbol():
     assert arena.robot == 'x'
     assert arena.item == '*'
 
+
+def test_set_a_blue_team_robot():
+    arena = Arena()
+
+    arena.set_blue_team()
+
+    assert 'x' in arena.board[0]
