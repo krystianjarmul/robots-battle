@@ -33,3 +33,11 @@ def test_robot_turn_right_changes_its_facing():
     robot.turn(Direction.EAST)
 
     assert robot.facing == [0, 1, 0, 0]
+
+
+def test_robot_turn_down_changes_its_facing():
+    robot = ActivatedRobot(Team.RED)
+
+    robot.turn(Direction.SOUTH)
+
+    assert robot.facing == [0, 0, 1, 0]

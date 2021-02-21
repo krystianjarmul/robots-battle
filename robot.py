@@ -41,6 +41,8 @@ class ActivatedRobot(Robot):
     def turn(self, direction: Direction):
         if direction.name == 'EAST':
             self.facing = [0, 1, 0, 0]
+        elif direction.name == 'SOUTH':
+            self.facing = [0, 0, 1, 0]
 
 
 class DeactivatedRobot(Robot):
