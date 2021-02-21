@@ -43,6 +43,8 @@ class ActivatedRobot(Robot):
             self.facing = [0, 1, 0, 0]
         elif direction.name == 'SOUTH':
             self.facing = [0, 0, 1, 0]
+        elif direction.name == 'WEST':
+            self.facing = [0, 0, 0, 1]
 
 
 class DeactivatedRobot(Robot):
