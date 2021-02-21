@@ -39,7 +39,9 @@ class ActivatedRobot(Robot):
         self.facing: List[int] = [1, 0, 0, 0]
 
     def turn(self, direction: Direction):
-        if direction.name == 'EAST':
+        if direction.name == 'NORTH':
+            self.facing = [1, 0, 0, 0]
+        elif direction.name == 'EAST':
             self.facing = [0, 1, 0, 0]
         elif direction.name == 'SOUTH':
             self.facing = [0, 0, 1, 0]
