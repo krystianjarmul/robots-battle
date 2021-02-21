@@ -21,8 +21,8 @@ class Arena:
             [0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0],
         ]
-        self.robot = 'x'
-        self.item = '*'
+        self.robot: str = 'x'
+        self.item: str = '*'
 
     def set_blue_team(self):
         idx = random.randint(0, 5)
@@ -53,6 +53,8 @@ class Arena:
             dst = pos[0] - 1
             if dst < 0:
                 dst = 0
+            elif self.board[dst][pos[1]] == 'x':
+                dst = pos[0]
             self.board[pos[0]][pos[1]] = 0
             self.board[dst][pos[1]] = 'x'
 
@@ -60,6 +62,8 @@ class Arena:
             dst = pos[0] + 1
             if dst > 5:
                 dst = 5
+            elif self.board[dst][pos[1]] == 'x':
+                dst = pos[0]
             self.board[pos[0]][pos[1]] = 0
             self.board[dst][pos[1]] = 'x'
 
@@ -67,6 +71,8 @@ class Arena:
             dst = pos[1] - 1
             if dst < 0:
                 dst = 0
+            elif self.board[pos[0]][dst] == 'x':
+                dst = pos[1]
             self.board[pos[0]][pos[1]] = 0
             self.board[pos[0]][dst] = 'x'
 
@@ -74,5 +80,7 @@ class Arena:
             dst = pos[1] + 1
             if dst > 5:
                 dst = 5
+            elif self.board[pos[0]][dst] == 'x':
+                dst = pos[1]
             self.board[pos[0]][pos[1]] = 0
             self.board[pos[0]][dst] = 'x'

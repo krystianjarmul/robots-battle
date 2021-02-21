@@ -3,18 +3,6 @@ import random
 from arena import Arena, Move
 
 
-def set_robot_in_center(board):
-    board[2][3] = 'x'
-
-
-def set_robot_in_upper_corner(board):
-    board[0][0] = 'x'
-
-
-def set_robot_in_downer_corner(board):
-    board[5][5] = 'x'
-
-
 def test_arena_is_square_6x6():
     arena = Arena()
     assert len(arena.board) == 6
@@ -67,7 +55,7 @@ def test_init_sets_all_robots_on_board():
 
 def test_move_up_successfully():
     arena = Arena()
-    set_robot_in_center(arena.board)
+    arena.board[2][3] = 'x'
 
     arena.move((2, 3), Move.UP)
 
@@ -77,7 +65,7 @@ def test_move_up_successfully():
 
 def test_move_down_successfully():
     arena = Arena()
-    set_robot_in_center(arena.board)
+    arena.board[2][3] = 'x'
 
     arena.move((2, 3), Move.DOWN)
 
@@ -87,7 +75,7 @@ def test_move_down_successfully():
 
 def test_move_left_successfully():
     arena = Arena()
-    set_robot_in_center(arena.board)
+    arena.board[2][3] = 'x'
 
     arena.move((2, 3), Move.LEFT)
 
@@ -97,7 +85,7 @@ def test_move_left_successfully():
 
 def test_move_right_successfully():
     arena = Arena()
-    set_robot_in_center(arena.board)
+    arena.board[2][3] = 'x'
 
     arena.move((2, 3), Move.RIGHT)
 
@@ -107,7 +95,7 @@ def test_move_right_successfully():
 
 def test_move_up_outside_the_board_not_possible():
     arena = Arena()
-    set_robot_in_upper_corner(arena.board)
+    arena.board[0][0] = 'x'
 
     arena.move((0, 0), Move.UP)
 
@@ -116,7 +104,7 @@ def test_move_up_outside_the_board_not_possible():
 
 def test_move_left_outside_the_board_not_possible():
     arena = Arena()
-    set_robot_in_upper_corner(arena.board)
+    arena.board[0][0] = 'x'
 
     arena.move((0, 0), Move.LEFT)
 
@@ -125,7 +113,7 @@ def test_move_left_outside_the_board_not_possible():
 
 def test_move_down_outside_the_board_not_possible():
     arena = Arena()
-    set_robot_in_downer_corner(arena.board)
+    arena.board[5][5] = 'x'
 
     arena.move((5, 5), Move.DOWN)
 
@@ -134,8 +122,52 @@ def test_move_down_outside_the_board_not_possible():
 
 def test_move_right_outside_the_board_not_possible():
     arena = Arena()
-    set_robot_in_downer_corner(arena.board)
+    arena.board[5][5] = 'x'
 
     arena.move((5, 5), Move.RIGHT)
 
     assert arena.board[5][5] == 'x'
+
+
+def test_move_up_on_another_robot_not_possible():
+    arena = Arena()
+    arena.board[2][3] = 'x'
+    arena.board[1][3] = 'x'
+
+    arena.move((2, 3), Move.UP)
+
+    assert arena.board[1][3] == 'x'
+    assert arena.board[2][3] == 'x'
+
+
+def test_move_right_on_another_robot_not_possible():
+    arena = Arena()
+    arena.board[2][3] = 'x'
+    arena.board[2][4] = 'x'
+
+    arena.move((2, 3), Move.RIGHT)
+
+    assert arena.board[2][3] == 'x'
+    assert arena.board[2][4] == 'x'
+
+
+def test_move_down_on_another_robot_not_possible():
+    arena = Arena()
+    arena.board[2][3] = 'x'
+    arena.board[3][3] = 'x'
+
+    arena.move((2, 3), Move.DOWN)
+
+    assert arena.board[2][3] == 'x'
+    assert arena.board[3][3] == 'x'
+
+
+def test_move_left_on_another_robot_not_possible():
+    arena = Arena()
+    arena.board[2][3] = 'x'
+    arena.board[2][2] = 'x'
+
+    arena.move((2, 3), Move.LEFT)
+
+    assert arena.board[2][2] == 'x'
+    assert arena.board[2][3] == 'x'
