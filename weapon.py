@@ -1,4 +1,7 @@
-class Weapon:
+from base import Item
+
+
+class Weapon(Item):
 
     def __init__(self):
         self.directions: List[int]

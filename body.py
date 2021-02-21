@@ -1,4 +1,7 @@
-class Body:
+from base import Item
+
+
+class Body(Item):
 
     def __init__(self):
         self.name: str

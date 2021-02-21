@@ -1,19 +1,6 @@
-import enum
-
 import weapon
 import body
-
-
-class Team(enum.Enum):
-    BLUE = 0
-    RED = 1
-
-
-class Direction(enum.Enum):
-    NORTH = 0
-    EAST = 1
-    SOUTH = 2
-    WEST = 3
+from base import Team, Direction
 
 
 class Robot:

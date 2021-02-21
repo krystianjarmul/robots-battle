@@ -1,13 +1,7 @@
 import random
-import enum
 from typing import Tuple
 
-
-class Move(enum.Enum):
-    UP = 0
-    RIGHT = 1
-    DOWN = 2
-    LEFT = 3
+from base import Direction, Move
 
 
 class Arena:
