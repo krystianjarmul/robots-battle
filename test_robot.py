@@ -1,4 +1,4 @@
-from robot import ActivatedRobot, Team
+from robot import ActivatedRobot, Team, Robot
 import body
 import weapon
 
@@ -17,3 +17,11 @@ def test_robot_at_start_has_default_attributes():
     assert robot.hp == 2
     assert robot.movement == 1
     assert robot.weapon_slots == 1
+
+
+def test_robot_die_change_is_alive_attribute():
+    robot = Robot()
+
+    robot.die()
+
+    assert robot.is_alive is False

@@ -1,8 +1,8 @@
 class Weapon:
 
     def __init__(self):
-        directions: List[int]
-        range: List[int]
+        self.directions: List[int]
+        self.range: List[int]
 
     def __eq__(self, other):
         if not isinstance(other, Weapon):
