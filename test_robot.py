@@ -1,4 +1,4 @@
-from robot import ActivatedRobot, Team, Robot
+from robot import ActivatedRobot, Team, Robot, Direction
 import body
 import weapon
 
@@ -25,3 +25,11 @@ def test_robot_die_change_is_alive_attribute():
     robot.die()
 
     assert robot.is_alive is False
+
+
+def test_robot_turn_right_changes_its_facing():
+    robot = ActivatedRobot(Team.RED)
+
+    robot.turn(Direction.EAST)
+
+    assert robot.facing == [0, 1, 0, 0]

@@ -9,6 +9,13 @@ class Team(enum.Enum):
     RED = 1
 
 
+class Direction(enum.Enum):
+    NORTH = 0
+    EAST = 1
+    SOUTH = 2
+    WEST = 3
+
+
 class Robot:
 
     def __init__(self):
@@ -29,6 +36,11 @@ class ActivatedRobot(Robot):
         self.weapons: List[weapon.Weapon] = [weapon.BasicShot(), ]
         self.movement: int = 1
         self.weapon_slots: int = 1
+        self.facing: List[int] = [1, 0, 0, 0]
+
+    def turn(self, direction: Direction):
+        if direction.name == 'EAST':
+            self.facing = [0, 1, 0, 0]
 
 
 class DeactivatedRobot(Robot):
