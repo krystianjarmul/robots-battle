@@ -1,3 +1,5 @@
+from typing import List, Tuple, Optional
+
 import weapon
 import body
 from base import Team, Direction
@@ -24,6 +26,7 @@ class ActivatedRobot(Robot):
         self.movement: int = 1
         self.weapon_slots: int = 1
         self.facing: List[int] = [1, 0, 0, 0]
+        self.position: Optional[Tuple[int, int]] = None
 
     def turn(self, direction: Direction):
         if direction.name == 'NORTH':

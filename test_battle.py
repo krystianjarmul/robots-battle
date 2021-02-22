@@ -30,3 +30,13 @@ def test_move_the_robot():
 
     assert battle.arena.board[2][3] == 0
     assert battle.arena.board[1][3] == 'x'
+
+
+def test_robots_initialize():
+    battle = Battle()
+    battle.start()
+
+    battle.init_robots()
+
+    assert battle.robot_red.position[0] == 0
+    assert battle.robot_blue.position[0] == 5
