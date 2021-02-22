@@ -1,5 +1,8 @@
+from typing import Tuple
+
 import arena
 import robot
+from base import Move
 
 
 class Battle:
@@ -11,3 +14,6 @@ class Battle:
 
     def start(self):
         self.arena.init()
+
+    def move(self, pos: Tuple[int, int], move: Move):
+        self.arena.move(pos, move)
