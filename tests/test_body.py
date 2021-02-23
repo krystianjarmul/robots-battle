@@ -1,4 +1,4 @@
-import body
+from src import body
 
 
 def test_simple_body_attributes():

@@ -1,9 +1,9 @@
 from unittest import mock
 
-from battle import Battle
-from arena import Arena
-from robot import ActivatedRobot
-from base import Move, Team, Direction
+from src.battle import Battle
+from src.arena import Arena
+from src.robot import ActivatedRobot
+from src.base import Move, Direction
 
 
 def test_default_attributes():
@@ -13,8 +13,8 @@ def test_default_attributes():
     assert isinstance(battle.robot_blue, ActivatedRobot)
 
 
-@mock.patch('arena.Arena.init')
-@mock.patch('battle.Battle.init_robots')
+@mock.patch('src.arena.Arena.init')
+@mock.patch('src.battle.Battle.init_robots')
 def test_battle_start(init_robots_mock, init_mock):
     battle = Battle()
 

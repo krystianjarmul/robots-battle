@@ -1,7 +1,7 @@
 import random
 from typing import Tuple
 
-from base import Direction, Move
+from src.base import Move
 
 
 class Arena:

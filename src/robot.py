@@ -1,8 +1,7 @@
 from typing import List, Tuple, Optional
 
-import weapon
-import body
-from base import Team, Direction
+from src import body, weapon
+from src.base import Team, Direction
 
 
 class Robot:

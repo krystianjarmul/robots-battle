@@ -1,4 +1,4 @@
-from base import Item
+from src.base import Item
 
 
 class Weapon(Item):

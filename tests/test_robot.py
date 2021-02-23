@@ -1,6 +1,6 @@
-from robot import ActivatedRobot, Team, Robot, Direction
-from body import SimpleBody
-from weapon import BasicShot
+from src.robot import ActivatedRobot, Team, Robot, Direction
+from src.body import SimpleBody
+from src.weapon import BasicShot
 
 
 def test_robot_belongs_to_blue_or_read_team():

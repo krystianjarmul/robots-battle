@@ -1,8 +1,5 @@
-from typing import Tuple
-
-import arena
-import robot
-from base import Move, Direction
+from src import arena, robot
+from src.base import Move, Direction
 
 
 class Battle:

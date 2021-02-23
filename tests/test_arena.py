@@ -1,6 +1,4 @@
-import random
-
-from arena import Arena, Move
+from src.arena import Arena, Move
 
 
 def test_arena_is_square_6x6():

@@ -1,4 +1,4 @@
-import weapon
+from src import weapon
 
 
 def test_basic_shot_attributes():
