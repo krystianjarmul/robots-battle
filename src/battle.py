@@ -15,7 +15,8 @@ class Battle:
 
     def move(self, robot: robot.ActivatedRobot, move: Move):
         position = robot.position
-        self.arena.move(position, move)
+        dest = self.arena.move(position, move)
+        robot.position = dest
 
     def turn(self, robot: robot.ActivatedRobot, direction: Direction):
         robot.turn(direction)

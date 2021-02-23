@@ -36,6 +36,7 @@ class Arena:
                     continue
                 battleground[row][idx] = 'x'
                 break
+        pass
 
     def init(self):
         self.set_blue_team()
@@ -44,37 +45,43 @@ class Arena:
 
     def move(self, pos: Tuple[int, int], move: Move):
         if move.name == 'UP':
-            dst = pos[0] - 1
-            if dst < 0:
-                dst = 0
-            elif self.board[dst][pos[1]] == 'x':
-                dst = pos[0]
+            dest = pos[0] - 1
+            if dest < 0:
+                dest = 0
+            elif self.board[dest][pos[1]] == 'x':
+                dest = pos[0]
             self.board[pos[0]][pos[1]] = 0
-            self.board[dst][pos[1]] = 'x'
+            self.board[dest][pos[1]] = 'x'
+            x, y = dest, pos[1]
 
         elif move.name == 'DOWN':
-            dst = pos[0] + 1
-            if dst > 5:
-                dst = 5
-            elif self.board[dst][pos[1]] == 'x':
-                dst = pos[0]
+            dest = pos[0] + 1
+            if dest > 5:
+                dest = 5
+            elif self.board[dest][pos[1]] == 'x':
+                dest = pos[0]
             self.board[pos[0]][pos[1]] = 0
-            self.board[dst][pos[1]] = 'x'
+            self.board[dest][pos[1]] = 'x'
+            x, y = dest, pos[1]
 
         elif move.name == 'LEFT':
-            dst = pos[1] - 1
-            if dst < 0:
-                dst = 0
-            elif self.board[pos[0]][dst] == 'x':
-                dst = pos[1]
+            dest = pos[1] - 1
+            if dest < 0:
+                dest = 0
+            elif self.board[pos[0]][dest] == 'x':
+                dest = pos[1]
             self.board[pos[0]][pos[1]] = 0
-            self.board[pos[0]][dst] = 'x'
+            self.board[pos[0]][dest] = 'x'
+            x, y = pos[0], dest
 
         elif move.name == 'RIGHT':
-            dst = pos[1] + 1
-            if dst > 5:
-                dst = 5
-            elif self.board[pos[0]][dst] == 'x':
-                dst = pos[1]
+            dest = pos[1] + 1
+            if dest > 5:
+                dest = 5
+            elif self.board[pos[0]][dest] == 'x':
+                dest = pos[1]
             self.board[pos[0]][pos[1]] = 0
-            self.board[pos[0]][dst] = 'x'
+            self.board[pos[0]][dest] = 'x'
+            x, y = pos[0], dest
+
+        return (x, y)
