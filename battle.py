@@ -2,7 +2,7 @@ from typing import Tuple
 
 import arena
 import robot
-from base import Move
+from base import Move, Direction
 
 
 class Battle:
@@ -16,8 +16,11 @@ class Battle:
         self.arena.init()
 
     def move(self, robot: robot.ActivatedRobot, move: Move):
-        pos = robot.position
-        self.arena.move(pos, move)
+        position = robot.position
+        self.arena.move(position, move)
+
+    def turn(self, robot: robot.ActivatedRobot, direction: Direction):
+        robot.turn(direction)
 
     def init_robots(self):
         try:
