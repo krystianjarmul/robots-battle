@@ -14,6 +14,7 @@ class Battle:
 
     def start(self):
         self.arena.init()
+        self.init_robots()
 
     def move(self, robot: robot.ActivatedRobot, move: Move):
         position = robot.position

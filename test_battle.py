@@ -14,12 +14,14 @@ def test_default_attributes():
 
 
 @mock.patch('arena.Arena.init')
-def test_battle_start(init_mock):
+@mock.patch('battle.Battle.init_robots')
+def test_battle_start(init_robots_mock, init_mock):
     battle = Battle()
 
     battle.start()
 
     assert init_mock.called
+    assert init_robots_mock.called
 
 
 def test_move_the_robot():
