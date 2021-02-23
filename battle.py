@@ -15,7 +15,8 @@ class Battle:
     def start(self):
         self.arena.init()
 
-    def move(self, pos: Tuple[int, int], move: Move):
+    def move(self, robot: robot.ActivatedRobot, move: Move):
+        pos = robot.position
         self.arena.move(pos, move)
 
     def init_robots(self):

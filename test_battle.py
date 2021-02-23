@@ -3,7 +3,7 @@ from unittest import mock
 from battle import Battle
 from arena import Arena
 from robot import ActivatedRobot
-from base import Move
+from base import Move, Team
 
 
 def test_default_attributes():
@@ -24,9 +24,11 @@ def test_battle_start(init_mock):
 
 def test_move_the_robot():
     battle = Battle()
-
+    robot = ActivatedRobot(Team.BLUE)
+    robot.position = (2, 3)
     battle.arena.board[2][3] = 'x'
-    battle.move((2, 3), Move.UP)
+
+    battle.move(robot, Move.UP)
 
     assert battle.arena.board[2][3] == 0
     assert battle.arena.board[1][3] == 'x'
