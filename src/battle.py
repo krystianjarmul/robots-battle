@@ -24,8 +24,10 @@ class Battle:
     def init_robots(self):
         try:
             robot_red_position_y = self.arena.board[0].index('x')
-            robot_blue_position_y = self.arena.board[5].index('x')
             self.robot_red.position = (0, robot_red_position_y)
+            self.robot_red.facing = [0, 0, 1, 0]
+            robot_blue_position_y = self.arena.board[5].index('x')
             self.robot_blue.position = (5, robot_blue_position_y)
         except Exception as e:
             print('Arena is not initialized')
+            print(e)

@@ -18,11 +18,11 @@ class Arena:
         self.robot: str = 'x'
         self.item: str = '*'
 
-    def set_blue_team(self):
+    def set_red_team(self):
         idx = random.randint(0, 5)
         self.board[0][idx] = 'x'
 
-    def set_red_team(self):
+    def set_blue_team(self):
         idx = random.randint(0, 5)
         self.board[-1][idx] = 'x'
 
@@ -36,12 +36,11 @@ class Arena:
                     continue
                 battleground[row][idx] = 'x'
                 break
-        pass
 
     def init(self):
-        self.set_blue_team()
         self.set_red_team()
-        self.set_deactivated_robots()
+        # self.set_blue_team()
+        # self.set_deactivated_robots()
 
     def move(self, pos: Tuple[int, int], move: Move):
         if move.name == 'UP':
