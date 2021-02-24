@@ -32,7 +32,7 @@ def test_robot_turn_right_changes_its_facing():
 
     robot.turn(Direction.EAST)
 
-    assert robot.facing == [0, 1, 0, 0]
+    assert robot.facing == [0, 0, 0, 1]
 
 
 def test_robot_turn_down_changes_its_facing():
@@ -48,7 +48,7 @@ def test_robot_turn_left_changes_its_facing():
 
     robot.turn(Direction.WEST)
 
-    assert robot.facing == [0, 0, 0, 1]
+    assert robot.facing == [0, 1, 0, 0]
 
 
 def test_robot_turn_left_changes_its_facing():

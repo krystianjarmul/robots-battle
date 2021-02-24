@@ -52,7 +52,7 @@ def test_turn_the_robot():
 
     battle.turn(robot, Direction.EAST)
 
-    assert battle.robot_blue.facing == [0, 1, 0, 0]
+    assert battle.robot_blue.facing == [0, 0, 0, 1]
 
 
 def test_red_robot_looks_south_by_default():

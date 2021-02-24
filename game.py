@@ -20,8 +20,13 @@ ROBOT_IMAGE = pygame.image.load(
 
 def draw_window(battle):
     WIN.fill(WHITE)
+
+    robot_img = pygame.transform.rotate(
+        ROBOT_IMAGE, battle.robot_red.facing.index(1) * 90
+    )
+
     WIN.blit(
-        ROBOT_IMAGE,
+        robot_img,
         (
             battle.robot_red.position[1] * 100,
             battle.robot_red.position[0] * 100
@@ -31,6 +36,8 @@ def draw_window(battle):
 
 
 def main():
+    img = ROBOT_IMAGE
+    rect = img.get_rect()
     clock = pygame.time.Clock()
     battle = Battle()
     battle.start()
@@ -45,22 +52,30 @@ def main():
                 if event.key == pygame.K_UP:
                     battle.turn(battle.robot_red, Direction.NORTH)
                     battle.move(battle.robot_red, Move.UP)
-                    print(battle.robot_red.facing)
 
                 elif event.key == pygame.K_DOWN:
                     battle.turn(battle.robot_red, Direction.SOUTH)
                     battle.move(battle.robot_red, Move.DOWN)
-                    print(battle.robot_red.facing)
 
                 elif event.key == pygame.K_LEFT:
                     battle.turn(battle.robot_red, Direction.WEST)
                     battle.move(battle.robot_red, Move.LEFT)
-                    print(battle.robot_red.facing)
 
                 elif event.key == pygame.K_RIGHT:
                     battle.turn(battle.robot_red, Direction.EAST)
                     battle.move(battle.robot_red, Move.RIGHT)
-                    print(battle.robot_red.facing)
+
+                elif event.key == pygame.K_w:
+                    battle.turn(battle.robot_red, Direction.NORTH)
+
+                elif event.key == pygame.K_s:
+                    battle.turn(battle.robot_red, Direction.SOUTH)
+
+                elif event.key == pygame.K_a:
+                    battle.turn(battle.robot_red, Direction.WEST)
+
+                elif event.key == pygame.K_d:
+                    battle.turn(battle.robot_red, Direction.EAST)
 
         draw_window(battle)
 
