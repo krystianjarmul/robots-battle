@@ -1,3 +1,4 @@
+from src import weapon
 from src.robot import ActivatedRobot, Team, Robot, Direction
 from src.body import SimpleBody
 from src.weapon import BasicShot
@@ -58,3 +59,11 @@ def test_robot_turn_left_changes_its_facing():
     robot.turn(Direction.NORTH)
 
     assert robot.facing == [1, 0, 0, 0]
+
+
+def test_robot_attack_returns_weapon():
+    robot = ActivatedRobot(Team.RED)
+    weapon = robot.attack()
+
+    assert weapon.directions == [0, 1, 0, 0, 0, 0, 0, 0, 0]
+    assert weapon.range == [0, 2, 0, 0, 0, 0, 0, 0, 0]

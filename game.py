@@ -17,6 +17,10 @@ ROBOT_IMAGE = pygame.image.load(
     os.path.join(BASEDIR, 'static', 'robot.png')
 )
 
+ATTACK_IMAGE = pygame.image.load(
+    os.path.join(BASEDIR, 'static', 'attack.png')
+)
+
 
 def draw_window(battle):
     WIN.fill(WHITE)

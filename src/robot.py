@@ -37,6 +37,12 @@ class ActivatedRobot(Robot):
         elif direction.name == 'WEST':
             self.facing = [0, 1, 0, 0]
 
+    def attack(self, idx: int = 0) -> weapon.Weapon:
+        try:
+            return self.weapons[idx]
+        except IndexError as e:
+            print(e)
+
 
 class DeactivatedRobot(Robot):
 
