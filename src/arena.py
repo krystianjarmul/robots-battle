@@ -39,8 +39,8 @@ class Arena:
 
     def init(self):
         self.set_red_team()
-        # self.set_blue_team()
-        # self.set_deactivated_robots()
+        self.set_blue_team()
+        self.set_deactivated_robots()
 
     def move(self, pos: Tuple[int, int], move: Move):
         if move.name == 'UP':

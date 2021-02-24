@@ -21,6 +21,21 @@ class Battle:
     def turn(self, robot: robot.ActivatedRobot, direction: Direction):
         robot.turn(direction)
 
+    def attack(self, robot: robot.ActivatedRobot, idx: int = 0):
+        weapon = robot.attack(idx)
+        # szuka czy w zasiegu razenia jest jakis robot
+        robot_direction = robot.facing.index(1)
+        range = weapon.range
+        directions = weapon.directions
+        print(robot_direction)
+        print(range)
+        print(directions)
+        # w zaleznosci od facingu - zmieniaja sie macierze broni
+        # jesli nie - nic sie nie dzieje
+        # jesli tak - pobiera jego polozenie i sprawdza po wszystkich robotach ktory to
+        # nastepnie odejmuje mu 1hp
+
+
     def init_robots(self):
         try:
             robot_red_position_y = self.arena.board[0].index('x')
@@ -29,5 +44,4 @@ class Battle:
             robot_blue_position_y = self.arena.board[5].index('x')
             self.robot_blue.position = (5, robot_blue_position_y)
         except Exception as e:
-            print('Arena is not initialized')
-            print(e)
+            pass

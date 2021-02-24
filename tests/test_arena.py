@@ -24,7 +24,7 @@ def test_sets_a_blue_team_robot_its_starting_area():
 
     arena.set_blue_team()
 
-    assert 'x' in arena.board[0]
+    assert 'x' in arena.board[-1]
 
 
 def test_sets_a_red_team_robot_in_its_starting_area():
@@ -32,7 +32,7 @@ def test_sets_a_red_team_robot_in_its_starting_area():
 
     arena.set_red_team()
 
-    assert 'x' in arena.board[-1]
+    assert 'x' in arena.board[0]
 
 
 def test_sets_8_deactivated_robots_in_battleground():

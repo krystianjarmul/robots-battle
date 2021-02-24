@@ -65,5 +65,5 @@ def test_robot_attack_returns_weapon():
     robot = ActivatedRobot(Team.RED)
     weapon = robot.attack()
 
-    assert weapon.directions == [0, 1, 0, 0, 0, 0, 0, 0, 0]
-    assert weapon.range == [0, 2, 0, 0, 0, 0, 0, 0, 0]
+    assert weapon.directions == [[0, 1, 0], [0, 0, 0], [0, 0, 0]]
+    assert weapon.range == [[0, 2, 0], [0, 0, 0], [0, 0, 0]]

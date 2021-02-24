@@ -6,6 +6,17 @@ from src.robot import ActivatedRobot
 from src.base import Move, Direction
 
 
+def get_robot(battle, pos, facing=[1, 0, 0, 0], blue=False):
+    battle.arena.board[pos[0]][pos[1]] = 'x'
+    if blue:
+        robot = battle.robot_red
+    else:
+        robot = battle.robot_blue
+    robot.position = (pos[0], pos[1])
+    robot.facing = facing
+    return robot
+
+
 def test_default_attributes():
     battle = Battle()
     assert isinstance(battle.arena, Arena)
@@ -60,3 +71,21 @@ def test_red_robot_looks_south_by_default():
     battle.start()
 
     assert battle.robot_red.facing == [0, 0, 1, 0]
+
+
+def test_attack_check_if_any_robot_in_range():
+    battle = Battle()
+    red_robot = get_robot(battle, (3, 3))
+    blue_robot = get_robot(battle, (2, 3), blue=True)
+
+    battle.attack(red_robot)
+    assert blue_robot.hp == 1
+
+
+def test_attack_check_if_any_robot_not_in_range():
+    battle = Battle()
+    red_robot = get_robot(battle, (3, 3))
+    blue_robot = get_robot(battle, (2, 4), blue=True)
+
+    battle.attack(red_robot)
+    assert blue_robot.hp == 2
