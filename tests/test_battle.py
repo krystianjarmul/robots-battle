@@ -9,9 +9,9 @@ from src.base import Move, Direction, Team
 def get_robot(battle, pos, facing=[1, 0, 0, 0], blue=False, red=False):
     battle.arena.board[pos[0]][pos[1]] = 'x'
     if blue:
-        robot = battle.robot_blue
+        robot = battle.blue_robot
     elif red:
-        robot = battle.robot_red
+        robot = battle.red_robot
     else:
         robot = battle.deactivated_robots[0]
 
@@ -23,8 +23,8 @@ def get_robot(battle, pos, facing=[1, 0, 0, 0], blue=False, red=False):
 def test_default_attributes():
     battle = Battle()
     assert isinstance(battle.arena, Arena)
-    assert isinstance(battle.robot_red, ActivatedRobot)
-    assert isinstance(battle.robot_blue, ActivatedRobot)
+    assert isinstance(battle.red_robot, ActivatedRobot)
+    assert isinstance(battle.blue_robot, ActivatedRobot)
 
 
 @mock.patch('src.arena.Arena.init')
@@ -40,9 +40,9 @@ def test_battle_start(init_robots_mock, init_mock):
 
 def test_move_the_robot():
     battle = Battle()
-    battle.robot_red.position = (2, 3)
+    battle.red_robot.position = (2, 3)
     battle.arena.board[2][3] = 'x'
-    robot = battle.robot_red
+    robot = battle.red_robot
 
     battle.move(robot, Move.UP)
 
@@ -56,24 +56,26 @@ def test_robots_initialize():
 
     battle.init_robots()
 
-    assert battle.robot_red.position[0] == 0
-    assert battle.robot_blue.position[0] == 5
+    assert battle.red_robot.position[0] == 0
+    assert battle.blue_robot.position[0] == 5
+    for robot in battle.deactivated_robots:
+        assert robot.position is not None
 
 
 def test_turn_the_robot():
     battle = Battle()
-    robot = battle.robot_blue
+    robot = battle.blue_robot
 
     battle.turn(robot, Direction.EAST)
 
-    assert battle.robot_blue.facing == [0, 1, 0, 0]
+    assert battle.blue_robot.facing == [0, 1, 0, 0]
 
 
 def test_red_robot_looks_south_by_default():
     battle = Battle()
     battle.start()
 
-    assert battle.robot_red.facing == [0, 0, 1, 0]
+    assert battle.red_robot.facing == [0, 0, 1, 0]
 
 
 def test_battle_deactivated_robots_attribute():
@@ -98,7 +100,7 @@ def test_set_red_robot():
 
     battle._set_robot(Team.RED)
 
-    assert battle.robot_red.position[0] == 0
+    assert battle.red_robot.position[0] == 0
 
 
 def test_set_blue_robot():
@@ -107,7 +109,7 @@ def test_set_blue_robot():
 
     battle._set_robot(Team.BLUE)
 
-    assert battle.robot_blue.position[0] == 5
+    assert battle.blue_robot.position[0] == 5
 
 
 def test_set_deactivated_robots():

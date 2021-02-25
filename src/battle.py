@@ -11,8 +11,8 @@ class Battle:
 
     def __init__(self):
         self.arena = Arena()
-        self.robot_red = ActivatedRobot(Team.RED)
-        self.robot_blue = ActivatedRobot(Team.BLUE)
+        self.red_robot = ActivatedRobot(Team.RED)
+        self.blue_robot = ActivatedRobot(Team.BLUE)
         self.deactivated_robots = [DeactivatedRobot(i) for i in range(8)]
 
     def start(self):
@@ -36,18 +36,15 @@ class Battle:
             if self.arena.board[field[0]][field[1]] == 'x'
         ]
 
-        all_robots = self.deactivated_robots + [
-            self.robot_red, self.robot_blue
-        ]
-
+        all_robots = [*self.deactivated_robots, self.red_robot, self.blue_robot]
         for robot in all_robots:
             if robot.position in positions_attacked:
                 robot.hp -= 1
 
-
     def init_robots(self):
         self._set_robot(Team.RED)
         self._set_robot(Team.BLUE)
+        self._set_deactivated_robots()
 
     def _get_attack_fields(
             self, robot: ActivatedRobot, weapon: Weapon
@@ -80,11 +77,11 @@ class Battle:
     def _set_robot(self, team: Team):
         if team.name == 'RED':
             robot_red_position_y = self.arena.board[0].index('x')
-            self.robot_red.position = (0, robot_red_position_y)
-            self.robot_red.facing = [0, 0, 1, 0]
+            self.red_robot.position = (0, robot_red_position_y)
+            self.red_robot.facing = [0, 0, 1, 0]
         elif team.name == 'BLUE':
             robot_blue_position_y = self.arena.board[5].index('x')
-            self.robot_blue.position = (5, robot_blue_position_y)
+            self.blue_robot.position = (5, robot_blue_position_y)
 
     def _set_deactivated_robots(self):
         battleground = self.arena.board[1:-1]
@@ -97,3 +94,9 @@ class Battle:
 
         for robot, position in zip(self.deactivated_robots, robots_position):
             robot.position = position
+
+    def _subtract_hp(self, *robots):
+
+        for robot in robots:
+            if robot.position in positions_attacked:
+                robot.hp -= 1

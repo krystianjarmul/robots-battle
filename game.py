@@ -26,14 +26,14 @@ def draw_window(battle):
     WIN.fill(WHITE)
 
     robot_img = pygame.transform.rotate(
-        ROBOT_IMAGE, battle.robot_red.facing.index(1) * (-90)
+        ROBOT_IMAGE, battle.red_robot.facing.index(1) * (-90)
     )
 
     WIN.blit(
         robot_img,
         (
-            battle.robot_red.position[1] * 100,
-            battle.robot_red.position[0] * 100
+            battle.red_robot.position[1] * 100,
+            battle.red_robot.position[0] * 100
         )
     )
     pygame.display.update()
@@ -54,32 +54,32 @@ def main():
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_UP:
-                    battle.turn(battle.robot_red, Direction.NORTH)
-                    battle.move(battle.robot_red, Move.UP)
+                    battle.turn(battle.red_robot, Direction.NORTH)
+                    battle.move(battle.red_robot, Move.UP)
 
                 elif event.key == pygame.K_DOWN:
-                    battle.turn(battle.robot_red, Direction.SOUTH)
-                    battle.move(battle.robot_red, Move.DOWN)
+                    battle.turn(battle.red_robot, Direction.SOUTH)
+                    battle.move(battle.red_robot, Move.DOWN)
 
                 elif event.key == pygame.K_LEFT:
-                    battle.turn(battle.robot_red, Direction.WEST)
-                    battle.move(battle.robot_red, Move.LEFT)
+                    battle.turn(battle.red_robot, Direction.WEST)
+                    battle.move(battle.red_robot, Move.LEFT)
 
                 elif event.key == pygame.K_RIGHT:
-                    battle.turn(battle.robot_red, Direction.EAST)
-                    battle.move(battle.robot_red, Move.RIGHT)
+                    battle.turn(battle.red_robot, Direction.EAST)
+                    battle.move(battle.red_robot, Move.RIGHT)
 
                 elif event.key == pygame.K_w:
-                    battle.turn(battle.robot_red, Direction.NORTH)
+                    battle.turn(battle.red_robot, Direction.NORTH)
 
                 elif event.key == pygame.K_s:
-                    battle.turn(battle.robot_red, Direction.SOUTH)
+                    battle.turn(battle.red_robot, Direction.SOUTH)
 
                 elif event.key == pygame.K_a:
-                    battle.turn(battle.robot_red, Direction.WEST)
+                    battle.turn(battle.red_robot, Direction.WEST)
 
                 elif event.key == pygame.K_d:
-                    battle.turn(battle.robot_red, Direction.EAST)
+                    battle.turn(battle.red_robot, Direction.EAST)
 
         draw_window(battle)
 
