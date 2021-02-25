@@ -24,24 +24,26 @@ class Battle:
     def attack(self, robot: robot.ActivatedRobot, idx: int = 0):
         weapon = robot.attack(idx)
         # szuka czy w zasiegu razenia jest jakis robot
-        robot_direction = robot.facing.index(1)
-        range = weapon.range
-        directions = weapon.directions
-        print(robot_direction)
-        print(range)
-        print(directions)
+        facing = robot.facing.index(1)
+        rng = weapon.range
+        dircts = weapon.directions
+        print(rng)
+        print(dircts)
         # w zaleznosci od facingu - zmieniaja sie macierze broni
+
+        rng = turn_matrix(rng)
+        dircts = turn_matrix(dircts)
+        print(rng)
+        print(dircts)
+
         # jesli nie - nic sie nie dzieje
         # jesli tak - pobiera jego polozenie i sprawdza po wszystkich robotach ktory to
         # nastepnie odejmuje mu 1hp
 
-
     def init_robots(self):
-        try:
-            robot_red_position_y = self.arena.board[0].index('x')
-            self.robot_red.position = (0, robot_red_position_y)
-            self.robot_red.facing = [0, 0, 1, 0]
-            robot_blue_position_y = self.arena.board[5].index('x')
-            self.robot_blue.position = (5, robot_blue_position_y)
-        except Exception as e:
-            pass
+        robot_red_position_y = self.arena.board[0].index('x')
+        robot_blue_position_y = self.arena.board[5].index('x')
+        self.robot_red.position = (0, robot_red_position_y)
+        self.robot_red.facing = [0, 0, 1, 0]
+        self.robot_blue.position = (5, robot_blue_position_y)
+
