@@ -2,7 +2,7 @@ from unittest import mock
 
 from src.battle import Battle
 from src.arena import Arena
-from src.robot import ActivatedRobot
+from src.robot import ActivatedRobot, DeactivatedRobot
 from src.base import Move, Direction
 
 
@@ -71,6 +71,13 @@ def test_red_robot_looks_south_by_default():
     battle.start()
 
     assert battle.robot_red.facing == [0, 0, 1, 0]
+
+
+def test_battle_deactivated_robots_attribute():
+    battle = Battle()
+    robots = battle.deactivated_robots
+    assert len(robots) == 8
+    assert any([isinstance(robot, DeactivatedRobot) for robot in robots])
 
 
 def test_attack_check_if_any_robot_in_range():

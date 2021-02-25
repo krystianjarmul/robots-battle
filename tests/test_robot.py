@@ -1,5 +1,5 @@
 from src import weapon
-from src.robot import ActivatedRobot, Team, Robot, Direction
+from src.robot import ActivatedRobot, Team, Robot, Direction, DeactivatedRobot
 from src.body import SimpleBody
 from src.weapon import BasicShot
 
@@ -67,3 +67,8 @@ def test_robot_attack_returns_weapon():
 
     assert weapon.directions == [[0, 1, 0], [0, 0, 0], [0, 0, 0]]
     assert weapon.range == [[0, 2, 0], [0, 0, 0], [0, 0, 0]]
+
+
+def test_deactivated_robot_has_id_attribute():
+    robot = DeactivatedRobot(1)
+    assert robot.id == 1

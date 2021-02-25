@@ -1,7 +1,7 @@
 from typing import List, Tuple
 
 from src.arena import Arena
-from src.robot import ActivatedRobot
+from src.robot import ActivatedRobot, DeactivatedRobot
 from src.weapon import Weapon
 from src.base import Move, Direction, Team
 from src.utils import get_turned_matrix, get_shift
@@ -13,6 +13,7 @@ class Battle:
         self.arena = Arena()
         self.robot_red = ActivatedRobot(Team.RED)
         self.robot_blue = ActivatedRobot(Team.BLUE)
+        self.deactivated_robots = [DeactivatedRobot(i) for i in range(8)]
 
     def start(self):
         self.arena.init()
@@ -29,9 +30,14 @@ class Battle:
     def attack(self, robot: ActivatedRobot, idx: int = 0):
         # szuka czy w zasiegu razenia jest jakis robot
         weapon = robot.attack(idx)
-        attack_fields = self.get_attack_fields(robot, weapon)
-
+        attack_fields = self._get_attack_fields(robot, weapon)
+        positions_attacked = [
+            field for field in attack_fields
+            if self.arena.board[field[0]][field[1]] == 'x'
+        ]
+        print(positions_attacked)
         # jesli tak - pobiera jego polozenie i sprawdza po wszystkich robotach ktory to
+        # lista robotow jako attribute battle (deactivated + activated)
         # jesli nie - nic sie nie dzieje
         # nastepnie odejmuje mu 1hp
 
@@ -42,7 +48,7 @@ class Battle:
         self.robot_red.facing = [0, 0, 1, 0]
         self.robot_blue.position = (5, robot_blue_position_y)
 
-    def get_attack_fields(
+    def _get_attack_fields(
             self, robot: ActivatedRobot, weapon: Weapon
     ) -> List[Tuple[int]]:
         facing_idx = robot.facing.index(1)
