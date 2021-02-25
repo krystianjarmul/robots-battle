@@ -1,19 +1,21 @@
 from typing import List, Tuple
 
 from src.arena import Arena
-from src.robot import ActivatedRobot, DeactivatedRobot
+from src.robot import Robot, ActivatedRobot, DeactivatedRobot
 from src.weapon import Weapon
-from src.base import Move, Direction, Team
+from src.base import Move, Direction, Team, Position
 from src.utils import get_turned_matrix, get_shift
 
 
 class Battle:
 
     def __init__(self):
-        self.arena = Arena()
-        self.red_robot = ActivatedRobot(Team.RED)
-        self.blue_robot = ActivatedRobot(Team.BLUE)
-        self.deactivated_robots = [DeactivatedRobot(i) for i in range(8)]
+        self.arena: Arena = Arena()
+        self.red_robot: Robot = ActivatedRobot(Team.RED)
+        self.blue_robot: Robot = ActivatedRobot(Team.BLUE)
+        self.deactivated_robots: List[Robot] = [
+            DeactivatedRobot(i) for i in range(8)
+        ]
 
     def start(self):
         self.arena.init()
@@ -31,12 +33,12 @@ class Battle:
         weapon = robot.attack(idx)
         attack_fields = self._get_attack_fields(robot, weapon)
 
-        attacked = [
+        attacked_positions = [
             field for field in attack_fields
             if self.arena.board[field[0]][field[1]] == 'x'
         ]
 
-        self._subtract_hp(attacked)
+        self._subtract_hp(attacked_positions)
 
     def _init_robots(self):
         self._set_robot(Team.RED)
@@ -45,7 +47,7 @@ class Battle:
 
     def _get_attack_fields(
             self, robot: ActivatedRobot, weapon: Weapon
-    ) -> List[Tuple[int]]:
+    ) -> List[Position]:
         facing_idx = robot.facing.index(1)
         weapon_range = get_turned_matrix(weapon.range, facing_idx)
         weapon_direction = get_turned_matrix(weapon.directions, facing_idx)
@@ -76,6 +78,7 @@ class Battle:
             robot_red_position_y = self.arena.board[0].index('x')
             self.red_robot.position = (0, robot_red_position_y)
             self.red_robot.facing = [0, 0, 1, 0]
+
         elif team.name == 'BLUE':
             robot_blue_position_y = self.arena.board[5].index('x')
             self.blue_robot.position = (5, robot_blue_position_y)
@@ -92,8 +95,8 @@ class Battle:
         for robot, position in zip(self.deactivated_robots, robots_position):
             robot.position = position
 
-    def _subtract_hp(self, positions_attacked: List[Tuple[int]]):
+    def _subtract_hp(self, positions: List[Position]):
         all_robots = [*self.deactivated_robots, self.red_robot, self.blue_robot]
         for robot in all_robots:
-            if robot.position in positions_attacked:
+            if robot.position in positions:
                 robot.hp -= 1

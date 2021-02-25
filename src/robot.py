@@ -1,14 +1,15 @@
-from typing import List, Tuple, Optional
+from typing import List, Optional
 
-from src import body, weapon
-from src.base import Team, Direction
+from src.body import Body, SimpleBody
+from src.weapon import Weapon, BasicShot
+from src.base import Team, Direction, Position
 
 
 class Robot:
 
     def __init__(self):
         self.hp: int
-        self.position: Optional[Tuple[int, int]] = None
+        self.position: Optional[Position] = None
 
 
 class ActivatedRobot(Robot):
@@ -17,8 +18,8 @@ class ActivatedRobot(Robot):
         super().__init__()
         self.team = team
         self.hp = 2
-        self.bodies: List[body.Body] = [body.SimpleBody(), ]
-        self.weapons: List[weapon.Weapon] = [weapon.BasicShot(), ]
+        self.bodies: List[Body] = [SimpleBody(), ]
+        self.weapons: List[Weapon] = [BasicShot(), ]
         self.movement: int = 1
         self.weapon_slots: int = 1
         self.facing: List[int] = [1, 0, 0, 0]
@@ -33,7 +34,7 @@ class ActivatedRobot(Robot):
         elif direction.name == 'WEST':
             self.facing = [0, 0, 0, 1]
 
-    def attack(self, idx: int = 0) -> weapon.Weapon:
+    def attack(self, idx: int = 0) -> Weapon:
         try:
             return self.weapons[idx]
         except IndexError as e:

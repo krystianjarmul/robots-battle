@@ -1,7 +1,9 @@
-from typing import List, Tuple
+from typing import List
+
+from src.base import Matrix, Position
 
 
-def get_turned_matrix(X: List[List[int]], times: int = 1) -> List[List[int]]:
+def get_turned_matrix(X: Matrix, times: int = 1) -> Matrix:
     if not times:
         return X
 
@@ -12,13 +14,16 @@ def get_turned_matrix(X: List[List[int]], times: int = 1) -> List[List[int]]:
         return get_turned_matrix(X_turned, times)
 
 
-def get_shift(facing: List[int], number: int) -> Tuple[int, int]:
+def get_shift(facing: List[int], number: int) -> Position:
     facing_idx = facing.index(1)
     if facing_idx == 0:
         return -number, 0
+
     elif facing_idx == 1:
         return 0, number
+
     elif facing_idx == 2:
         return number, 0
+
     elif facing_idx == 3:
         return 0, -number

@@ -1,4 +1,12 @@
 import enum
+from typing import Tuple, List
+
+Position = Tuple[int, int]
+Matrix = List[List[int]]
+
+
+class Item:
+    pass
 
 
 class Move(enum.Enum):
@@ -18,7 +26,3 @@ class Direction(enum.Enum):
     EAST = 1
     SOUTH = 2
     WEST = 3
-
-
-class Item:
-    pass
