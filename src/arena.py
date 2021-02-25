@@ -18,15 +18,65 @@ class Arena:
         self.robot: str = 'x'
         self.item: str = '*'
 
-    def set_red_team(self):
+    def init(self):
+        self._set_red_team()
+        self._set_blue_team()
+        self._set_deactivated_robots()
+
+    def move(self, source: Tuple[int, int], move: Move):
+        source_y = source[0]
+        source_x = source[1]
+        if move.name == 'UP':
+            destination_y = source_y - 1
+            if destination_y < 0:
+                destination_y = 0
+            elif self.board[destination_y][source_x] == 'x':
+                destination_y = source_y
+            self.board[source_y][source_x] = 0
+            self.board[destination_y][source_x] = 'x'
+            destination = (destination_y, source_x)
+
+        elif move.name == 'DOWN':
+            destination_y = source_y + 1
+            if destination_y > 5:
+                destination_y = 5
+            elif self.board[destination_y][source_x] == 'x':
+                destination_y = source_y
+            self.board[source_y][source_x] = 0
+            self.board[destination_y][source_x] = 'x'
+            destination = (destination_y, source_x)
+
+        elif move.name == 'LEFT':
+            destination_x = source_x - 1
+            if destination_x < 0:
+                destination_x = 0
+            elif self.board[source_y][destination_x] == 'x':
+                destination_x = source_x
+            self.board[source_y][source_x] = 0
+            self.board[source_y][destination_x] = 'x'
+            destination = (source_y, destination_x)
+
+        elif move.name == 'RIGHT':
+            destination_x = source_x + 1
+            if destination_x > 5:
+                destination_x = 5
+            elif self.board[source_y][destination_x] == 'x':
+                destination_x = source_x
+            self.board[source_y][source_x] = 0
+            self.board[source_y][destination_x] = 'x'
+            destination = (source_y, destination_x)
+
+        return destination
+
+    def _set_red_team(self):
         idx = random.randint(0, 5)
         self.board[0][idx] = 'x'
 
-    def set_blue_team(self):
+    def _set_blue_team(self):
         idx = random.randint(0, 5)
         self.board[-1][idx] = 'x'
 
-    def set_deactivated_robots(self):
+    def _set_deactivated_robots(self):
         battleground = self.board[1:-1]
         for _ in range(8):
             while True:
@@ -36,51 +86,3 @@ class Arena:
                     continue
                 battleground[row][idx] = 'x'
                 break
-
-    def init(self):
-        self.set_red_team()
-        self.set_blue_team()
-        self.set_deactivated_robots()
-
-    def move(self, pos: Tuple[int, int], move: Move):
-        if move.name == 'UP':
-            dest = pos[0] - 1
-            if dest < 0:
-                dest = 0
-            elif self.board[dest][pos[1]] == 'x':
-                dest = pos[0]
-            self.board[pos[0]][pos[1]] = 0
-            self.board[dest][pos[1]] = 'x'
-            x, y = dest, pos[1]
-
-        elif move.name == 'DOWN':
-            dest = pos[0] + 1
-            if dest > 5:
-                dest = 5
-            elif self.board[dest][pos[1]] == 'x':
-                dest = pos[0]
-            self.board[pos[0]][pos[1]] = 0
-            self.board[dest][pos[1]] = 'x'
-            x, y = dest, pos[1]
-
-        elif move.name == 'LEFT':
-            dest = pos[1] - 1
-            if dest < 0:
-                dest = 0
-            elif self.board[pos[0]][dest] == 'x':
-                dest = pos[1]
-            self.board[pos[0]][pos[1]] = 0
-            self.board[pos[0]][dest] = 'x'
-            x, y = pos[0], dest
-
-        elif move.name == 'RIGHT':
-            dest = pos[1] + 1
-            if dest > 5:
-                dest = 5
-            elif self.board[pos[0]][dest] == 'x':
-                dest = pos[1]
-            self.board[pos[0]][pos[1]] = 0
-            self.board[pos[0]][dest] = 'x'
-            x, y = pos[0], dest
-
-        return (x, y)

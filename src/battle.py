@@ -17,7 +17,7 @@ class Battle:
 
     def start(self):
         self.arena.init()
-        self.init_robots()
+        self._init_robots()
 
     def move(self, robot: ActivatedRobot, move: Move):
         position = robot.position
@@ -31,17 +31,14 @@ class Battle:
         weapon = robot.attack(idx)
         attack_fields = self._get_attack_fields(robot, weapon)
 
-        positions_attacked = [
+        attacked = [
             field for field in attack_fields
             if self.arena.board[field[0]][field[1]] == 'x'
         ]
 
-        all_robots = [*self.deactivated_robots, self.red_robot, self.blue_robot]
-        for robot in all_robots:
-            if robot.position in positions_attacked:
-                robot.hp -= 1
+        self._subtract_hp(attacked)
 
-    def init_robots(self):
+    def _init_robots(self):
         self._set_robot(Team.RED)
         self._set_robot(Team.BLUE)
         self._set_deactivated_robots()
@@ -95,8 +92,8 @@ class Battle:
         for robot, position in zip(self.deactivated_robots, robots_position):
             robot.position = position
 
-    def _subtract_hp(self, *robots):
-
-        for robot in robots:
+    def _subtract_hp(self, positions_attacked: List[Tuple[int]]):
+        all_robots = [*self.deactivated_robots, self.red_robot, self.blue_robot]
+        for robot in all_robots:
             if robot.position in positions_attacked:
                 robot.hp -= 1

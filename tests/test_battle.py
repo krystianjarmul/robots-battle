@@ -28,7 +28,7 @@ def test_default_attributes():
 
 
 @mock.patch('src.arena.Arena.init')
-@mock.patch('src.battle.Battle.init_robots')
+@mock.patch('src.battle.Battle._init_robots')
 def test_battle_start(init_robots_mock, init_mock):
     battle = Battle()
 
@@ -54,7 +54,7 @@ def test_robots_initialize():
     battle = Battle()
     battle.start()
 
-    battle.init_robots()
+    battle._init_robots()
 
     assert battle.red_robot.position[0] == 0
     assert battle.blue_robot.position[0] == 5
