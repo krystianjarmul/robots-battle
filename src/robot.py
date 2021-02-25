@@ -31,11 +31,11 @@ class ActivatedRobot(Robot):
         if direction.name == 'NORTH':
             self.facing = [1, 0, 0, 0]
         elif direction.name == 'EAST':
-            self.facing = [0, 0, 0, 1]
+            self.facing = [0, 1, 0, 0]
         elif direction.name == 'SOUTH':
             self.facing = [0, 0, 1, 0]
         elif direction.name == 'WEST':
-            self.facing = [0, 1, 0, 0]
+            self.facing = [0, 0, 0, 1]
 
     def attack(self, idx: int = 0) -> weapon.Weapon:
         try:

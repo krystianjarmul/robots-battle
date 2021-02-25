@@ -26,7 +26,7 @@ def draw_window(battle):
     WIN.fill(WHITE)
 
     robot_img = pygame.transform.rotate(
-        ROBOT_IMAGE, battle.robot_red.facing.index(1) * 90
+        ROBOT_IMAGE, battle.robot_red.facing.index(1) * (-90)
     )
 
     WIN.blit(
