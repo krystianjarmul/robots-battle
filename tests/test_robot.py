@@ -20,14 +20,6 @@ def test_robot_at_start_has_default_attributes():
     assert robot.weapon_slots == 1
 
 
-def test_robot_die_change_is_alive_attribute():
-    robot = Robot()
-
-    robot.die()
-
-    assert robot.is_alive is False
-
-
 def test_robot_turn_right_changes_its_facing():
     robot = ActivatedRobot(Team.RED)
 

@@ -8,11 +8,7 @@ class Robot:
 
     def __init__(self):
         self.hp: int
-        self.is_alive: bool = True
         self.position: Optional[Tuple[int, int]] = None
-
-    def die(self):
-        self.is_alive = False
 
 
 class ActivatedRobot(Robot):
