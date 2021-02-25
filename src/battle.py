@@ -86,3 +86,15 @@ class Battle:
         elif team.name == 'BLUE':
             robot_blue_position_y = self.arena.board[5].index('x')
             self.robot_blue.position = (5, robot_blue_position_y)
+
+    def _set_deactivated_robots(self):
+        battleground = self.arena.board[1:-1]
+        robots_position = [
+            (row_idx, col_idx)
+            for row_idx, row in enumerate(battleground)
+            for col_idx, col in enumerate(row)
+            if col == 'x'
+        ]
+
+        for robot, position in zip(self.deactivated_robots, robots_position):
+            robot.position = position

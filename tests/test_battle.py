@@ -109,13 +109,15 @@ def test_set_blue_robot():
 
     assert battle.robot_blue.position[0] == 5
 
-# def test_set_deactivated_robot():
-#     battle = Battle()
-#     battle.arena.init()
-#
-#     battle._set_robot()
-#
-#     assert battle.deactivated_robots[0] ==
+
+def test_set_deactivated_robots():
+    battle = Battle()
+    battle.arena.init()
+
+    battle._set_deactivated_robots()
+
+    for robot in battle.deactivated_robots:
+        assert robot.position is not None
 
 # def test_attack_subtract_hp_of_attacked_deactivated_robot():
 #     battle = Battle()
