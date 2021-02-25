@@ -3,15 +3,18 @@ from unittest import mock
 from src.battle import Battle
 from src.arena import Arena
 from src.robot import ActivatedRobot, DeactivatedRobot
-from src.base import Move, Direction
+from src.base import Move, Direction, Team
 
 
-def get_robot(battle, pos, facing=[1, 0, 0, 0], blue=False):
+def get_robot(battle, pos, facing=[1, 0, 0, 0], blue=False, red=False):
     battle.arena.board[pos[0]][pos[1]] = 'x'
     if blue:
+        robot = battle.robot_blue
+    elif red:
         robot = battle.robot_red
     else:
-        robot = battle.robot_blue
+        robot = battle.deactivated_robots[0]
+
     robot.position = (pos[0], pos[1])
     robot.facing = facing
     return robot
@@ -80,18 +83,44 @@ def test_battle_deactivated_robots_attribute():
     assert any([isinstance(robot, DeactivatedRobot) for robot in robots])
 
 
-def test_attack_check_if_any_robot_in_range():
+def test_attack_subtract_hp_of_attacked_activated_robot():
     battle = Battle()
-    red_robot = get_robot(battle, (3, 3))
+    red_robot = get_robot(battle, (3, 3), red=True)
     blue_robot = get_robot(battle, (2, 3), blue=True)
 
     battle.attack(red_robot)
     assert blue_robot.hp == 1
 
 
-def test_attack_check_if_any_robot_not_in_range():
+def test_set_red_robot():
     battle = Battle()
-    red_robot = get_robot(battle, (3, 3))
-    blue_robot = get_robot(battle, (2, 4), blue=True)
-    battle.attack(red_robot)
-    assert blue_robot.hp == 2
+    battle.arena.init()
+
+    battle._set_robot(Team.RED)
+
+    assert battle.robot_red.position[0] == 0
+
+
+def test_set_blue_robot():
+    battle = Battle()
+    battle.arena.init()
+
+    battle._set_robot(Team.BLUE)
+
+    assert battle.robot_blue.position[0] == 5
+
+# def test_set_deactivated_robot():
+#     battle = Battle()
+#     battle.arena.init()
+#
+#     battle._set_robot()
+#
+#     assert battle.deactivated_robots[0] ==
+
+# def test_attack_subtract_hp_of_attacked_deactivated_robot():
+#     battle = Battle()
+#     red_robot = get_robot(battle, (3, 3), red=True)
+#     deactivated_robot = get_robot(battle, (2, 3))
+#
+#     battle.attack(red_robot)
+#     assert deactivated_robot.hp == 1

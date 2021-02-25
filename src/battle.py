@@ -36,17 +36,21 @@ class Battle:
             if self.arena.board[field[0]][field[1]] == 'x'
         ]
         print(positions_attacked)
+        all_robots = self.deactivated_robots + [
+            self.robot_red, self.robot_blue
+        ]
+        for robot in all_robots:
+            if robot.position in positions_attacked:
+                robot.hp -= 1
+
         # jesli tak - pobiera jego polozenie i sprawdza po wszystkich robotach ktory to
         # lista robotow jako attribute battle (deactivated + activated)
         # jesli nie - nic sie nie dzieje
         # nastepnie odejmuje mu 1hp
 
     def init_robots(self):
-        robot_red_position_y = self.arena.board[0].index('x')
-        robot_blue_position_y = self.arena.board[5].index('x')
-        self.robot_red.position = (0, robot_red_position_y)
-        self.robot_red.facing = [0, 0, 1, 0]
-        self.robot_blue.position = (5, robot_blue_position_y)
+        self._set_robot(Team.RED)
+        self._set_robot(Team.BLUE)
 
     def _get_attack_fields(
             self, robot: ActivatedRobot, weapon: Weapon
@@ -73,3 +77,12 @@ class Battle:
         ]
 
         return attack_fields
+
+    def _set_robot(self, team: Team):
+        if team.name == 'RED':
+            robot_red_position_y = self.arena.board[0].index('x')
+            self.robot_red.position = (0, robot_red_position_y)
+            self.robot_red.facing = [0, 0, 1, 0]
+        elif team.name == 'BLUE':
+            robot_blue_position_y = self.arena.board[5].index('x')
+            self.robot_blue.position = (5, robot_blue_position_y)

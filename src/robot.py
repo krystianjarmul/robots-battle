@@ -9,6 +9,7 @@ class Robot:
     def __init__(self):
         self.hp: int
         self.is_alive: bool = True
+        self.position: Optional[Tuple[int, int]] = None
 
     def die(self):
         self.is_alive = False
@@ -25,7 +26,6 @@ class ActivatedRobot(Robot):
         self.movement: int = 1
         self.weapon_slots: int = 1
         self.facing: List[int] = [1, 0, 0, 0]
-        self.position: Optional[Tuple[int, int]] = None
 
     def turn(self, direction: Direction):
         if direction.name == 'NORTH':
