@@ -119,10 +119,11 @@ def test_set_deactivated_robots():
     for robot in battle.deactivated_robots:
         assert robot.position is not None
 
-# def test_attack_subtract_hp_of_attacked_deactivated_robot():
-#     battle = Battle()
-#     red_robot = get_robot(battle, (3, 3), red=True)
-#     deactivated_robot = get_robot(battle, (2, 3))
-#
-#     battle.attack(red_robot)
-#     assert deactivated_robot.hp == 1
+
+def test_attack_subtract_hp_of_attacked_deactivated_robot():
+    battle = Battle()
+    red_robot = get_robot(battle, (3, 3), red=True)
+    deactivated_robot = get_robot(battle, (2, 3))
+
+    battle.attack(red_robot)
+    assert deactivated_robot.hp == 0
