@@ -44,6 +44,8 @@ class Battle:
         if isinstance(robot, DeactivatedRobot):
             self.deactivated_robots.pop(robot.id)
 
+        self.arena.drop_item(robot.position)
+
     def _init_robots(self):
         self._set_robot(Team.RED)
         self._set_robot(Team.BLUE)
