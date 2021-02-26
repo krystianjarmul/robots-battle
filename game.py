@@ -40,29 +40,25 @@ def render_deactivated_robots(battle):
             battle.die(robot)
 
 
+def render_activated_robot(robot):
+    robot_img = pygame.transform.rotate(
+        ROBOT_IMAGE, robot.facing.index(1) * (-90)
+    )
+
+    WIN.blit(
+        robot_img,
+        (
+            robot.position[1] * 100,
+            robot.position[0] * 100
+        )
+    )
+
+
 def draw_window(battle):
     WIN.fill(WHITE)
 
-    red_robot_img = pygame.transform.rotate(
-        ROBOT_IMAGE, battle.red_robot.facing.index(1) * (-90)
-    )
-
-    WIN.blit(
-        red_robot_img,
-        (
-            battle.red_robot.position[1] * 100,
-            battle.red_robot.position[0] * 100
-        )
-    )
-
-    WIN.blit(
-        ROBOT_IMAGE,
-        (
-            battle.blue_robot.position[1] * 100,
-            battle.blue_robot.position[0] * 100
-        )
-    )
-
+    render_activated_robot(battle.red_robot)
+    render_activated_robot(battle.blue_robot)
     render_deactivated_robots(battle)
 
     pygame.display.update()
