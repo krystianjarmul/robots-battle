@@ -1,10 +1,24 @@
-from typing import List, Tuple
+import random
+from typing import List
 
 from src.arena import Arena
 from src.robot import Robot, ActivatedRobot, DeactivatedRobot
-from src.weapon import Weapon
 from src.base import Move, Direction, Team, Position
 from src.utils import get_turned_matrix, get_shift
+from src import weapon
+from src import body
+
+ITEMS = (
+    weapon.BasicShot,
+    weapon.Sword,
+    weapon.Laser,
+    weapon.Explosion,
+    weapon.DualLaser,
+    body.SimpleBody,
+    body.BattleBody,
+    body.HardBody,
+    body.LightBody,
+)
 
 
 class Battle:
@@ -16,6 +30,7 @@ class Battle:
         self.deactivated_robots: List[Robot] = [
             DeactivatedRobot(i) for i in range(8)
         ]
+        self.items: List[Item] = []
 
     def start(self):
         self.arena.init()
@@ -44,7 +59,13 @@ class Battle:
         if isinstance(robot, DeactivatedRobot):
             self.deactivated_robots.pop(robot.id)
 
-        self.arena.drop_item(robot.position)
+        self.drop_item(robot.position)
+
+    def drop_item(self, position: Position):
+        self.arena.drop_item(position)
+        item = random.choice(ITEMS)()
+        item.position = position
+        self.items.append(item)
 
     def _init_robots(self):
         self._set_robot(Team.RED)
@@ -52,7 +73,7 @@ class Battle:
         self._set_deactivated_robots()
 
     def _get_attack_fields(
-            self, robot: ActivatedRobot, weapon: Weapon
+            self, robot: ActivatedRobot, weapon: weapon.Weapon
     ) -> List[Position]:
         facing_idx = robot.facing.index(1)
         weapon_range = get_turned_matrix(weapon.range, facing_idx)

@@ -1,9 +1,11 @@
+import random
 from unittest import mock
 
 from src.battle import Battle
 from src.arena import Arena
 from src.robot import ActivatedRobot, DeactivatedRobot
-from src.base import Move, Direction, Team
+from src.base import Move, Direction, Team, Item
+from src import body
 
 
 def get_robot(battle, pos, facing=[1, 0, 0, 0], blue=False, red=False):
@@ -151,3 +153,13 @@ def test_drop_item_when_robot_dies():
     battle.die(robot)
 
     assert battle.arena.board[2][3] == '*'
+    assert isinstance(battle.items[0], Item)
+
+
+def test_drop_item_drops_random_weapon_or_body():
+    battle = Battle()
+
+    random.seed(2021)
+    battle.drop_item((2, 3))
+
+    assert battle.items == [body.BattleBody()]

@@ -6,7 +6,7 @@ Matrix = List[List[int]]
 
 
 class Item:
-    pass
+    position: Position
 
 
 class Move(enum.Enum):

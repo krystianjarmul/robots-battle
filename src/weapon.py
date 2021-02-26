@@ -1,3 +1,5 @@
+from dataclasses import dataclass
+
 from src.base import Item, Matrix
 
 
