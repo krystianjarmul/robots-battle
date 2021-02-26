@@ -173,3 +173,12 @@ def test_move_left_on_another_robot_not_possible():
 
     assert arena.board[2][2] == 'x'
     assert arena.board[2][3] == 'x'
+
+
+def test_drop_item_from_robot():
+    arena = Arena()
+    arena.board[2][3] = 'x'
+
+    arena.drop_item((2, 3))
+
+    assert arena.board[2][3] == '*'
