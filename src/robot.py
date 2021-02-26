@@ -11,6 +11,9 @@ class Robot:
         self.hp: int
         self.position: Optional[Position] = None
 
+    def is_alive(self) -> bool:
+        return bool(self.hp)
+
 
 class ActivatedRobot(Robot):
 

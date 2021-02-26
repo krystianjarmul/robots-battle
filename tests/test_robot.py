@@ -64,3 +64,14 @@ def test_robot_attack_returns_weapon():
 def test_deactivated_robot_has_id_attribute():
     robot = DeactivatedRobot(1)
     assert robot.id == 1
+
+
+def test_is_alive_checks_current_robot_hp():
+    robot1 = DeactivatedRobot(1)
+    robot2 = DeactivatedRobot(2)
+    robot2.hp -= 1
+
+    assert robot1.is_alive()
+    assert robot2.is_alive() is False
+
+
