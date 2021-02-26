@@ -65,8 +65,6 @@ def draw_window(battle):
 
 
 def main():
-    img = ROBOT_IMAGE
-    rect = img.get_rect()
     clock = pygame.time.Clock()
     battle = Battle()
     battle.start()
