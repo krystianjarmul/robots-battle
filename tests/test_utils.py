@@ -1,4 +1,5 @@
-from src.utils import get_turned_matrix, get_shift, is_field_correct
+from src.utils import get_turned_matrix, get_shift, is_field_correct, \
+    validate_fields
 
 
 def test_turn_matrix_once():
@@ -61,3 +62,11 @@ def test_field_is_validated():
     assert not is_field_correct(field2)
     assert not is_field_correct(field3)
     assert not is_field_correct(field4)
+
+
+def test_validate_attack_fields():
+    fields = [(3, 5), (3, 6)]
+
+    validate_fields(fields)
+
+    assert fields == [(3, 5)]

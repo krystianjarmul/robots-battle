@@ -34,3 +34,8 @@ def is_field_correct(field: Position) -> bool:
         return True
     return False
 
+
+def validate_fields(fields: List[Position]):
+    for field in fields:
+        if not is_field_correct(field):
+            fields.remove(field)
