@@ -29,15 +29,23 @@ DEACTIVATED_ROBOT_IMAGE = pygame.image.load(
 def draw_window(battle):
     WIN.fill(WHITE)
 
-    robot_img = pygame.transform.rotate(
+    red_robot_img = pygame.transform.rotate(
         ROBOT_IMAGE, battle.red_robot.facing.index(1) * (-90)
     )
 
     WIN.blit(
-        robot_img,
+        red_robot_img,
         (
             battle.red_robot.position[1] * 100,
             battle.red_robot.position[0] * 100
+        )
+    )
+
+    WIN.blit(
+        ROBOT_IMAGE,
+        (
+            battle.blue_robot.position[1] * 100,
+            battle.blue_robot.position[0] * 100
         )
     )
 
