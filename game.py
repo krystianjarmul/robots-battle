@@ -58,6 +58,9 @@ def draw_window(battle):
                     robot.position[0] * 100
                 )
             )
+        else:
+            battle.die(robot)
+
     pygame.display.update()
 
 

@@ -143,7 +143,7 @@ def test_after_death_deactivated_robot_is_removed():
     battle.die(robot)
 
     assert len(battle.deactivated_robots) == 7
-    assert robot.id not in [robot.id for robot in battle.deactivated_robots]
+    assert robot not in battle.deactivated_robots
 
 
 def test_drop_item_when_robot_dies():
@@ -163,5 +163,3 @@ def test_drop_item_drops_random_weapon_or_body():
     battle.drop_item((2, 3))
 
     assert battle.items == [body.BattleBody()]
-
-

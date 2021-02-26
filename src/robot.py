@@ -46,7 +46,6 @@ class ActivatedRobot(Robot):
 
 class DeactivatedRobot(Robot):
 
-    def __init__(self, id: int):
+    def __init__(self):
         super().__init__()
-        self.id = id
         self.hp = 1

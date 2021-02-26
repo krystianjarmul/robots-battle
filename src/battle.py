@@ -29,7 +29,7 @@ class Battle:
         self.red_robot: Robot = ActivatedRobot(Team.RED)
         self.blue_robot: Robot = ActivatedRobot(Team.BLUE)
         self.deactivated_robots: List[Robot] = [
-            DeactivatedRobot(i) for i in range(8)
+            DeactivatedRobot() for _ in range(8)
         ]
         self.items: List[Item] = []
 
@@ -60,8 +60,7 @@ class Battle:
 
     def die(self, robot: Robot):
         if isinstance(robot, DeactivatedRobot):
-            self.deactivated_robots.pop(robot.id)
-
+            self.deactivated_robots.pop(self.deactivated_robots.index(robot))
         self.drop_item(robot.position)
 
     def drop_item(self, position: Position):
