@@ -1,4 +1,5 @@
 import os
+import time
 
 import pygame
 
@@ -54,7 +55,21 @@ def render_activated_robot(robot):
     )
 
 
-def draw_window(battle):
+def render_attack(battle):
+    robot = battle.red_robot
+    for field in battle.get_attack_fields(robot):
+        WIN.blit(
+            ATTACK_IMAGE,
+            (
+                field[1] * 100,
+                field[0] * 100
+            )
+        )
+        pygame.display.update()
+    pygame.time.wait(250)
+
+
+def draw_window(battle, attacks=False):
     WIN.fill(WHITE)
 
     render_activated_robot(battle.red_robot)
@@ -107,6 +122,7 @@ def main():
 
                 elif event.key == pygame.K_SPACE:
                     battle.attack(battle.red_robot)
+                    render_attack(battle)
 
         draw_window(battle)
 

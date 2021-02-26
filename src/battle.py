@@ -45,9 +45,8 @@ class Battle:
     def turn(self, robot: ActivatedRobot, direction: Direction):
         robot.turn(direction)
 
-    def attack(self, robot: ActivatedRobot, idx: int = 0):
-        weapon = robot.attack(idx)
-        attack_fields = self.get_attack_fields(robot, weapon)
+    def attack(self, robot: ActivatedRobot, weapon_idx: int = 0):
+        attack_fields = self.get_attack_fields(robot, weapon_idx)
 
         attacked_positions = [
             field for field in attack_fields
@@ -73,8 +72,9 @@ class Battle:
         self._set_deactivated_robots()
 
     def get_attack_fields(
-            self, robot: ActivatedRobot, weapon: weapon.Weapon
+            self, robot: ActivatedRobot, weapon_idx: int = 0
     ) -> List[Position]:
+        weapon = robot.attack(weapon_idx)
         facing_idx = robot.facing.index(1)
         weapon_range = get_turned_matrix(weapon.range, facing_idx)
         weapon_direction = get_turned_matrix(weapon.directions, facing_idx)
