@@ -163,3 +163,5 @@ def test_drop_item_drops_random_weapon_or_body():
     battle.drop_item((2, 3))
 
     assert battle.items == [body.BattleBody()]
+
+

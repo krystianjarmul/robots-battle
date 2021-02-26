@@ -50,13 +50,14 @@ def draw_window(battle):
     )
 
     for robot in battle.deactivated_robots:
-        WIN.blit(
-            DEACTIVATED_ROBOT_IMAGE,
-            (
-                robot.position[1] * 100,
-                robot.position[0] * 100
+        if robot.hp:
+            WIN.blit(
+                DEACTIVATED_ROBOT_IMAGE,
+                (
+                    robot.position[1] * 100,
+                    robot.position[0] * 100
+                )
             )
-        )
     pygame.display.update()
 
 
@@ -102,6 +103,11 @@ def main():
 
                 elif event.key == pygame.K_d:
                     battle.turn(battle.red_robot, Direction.EAST)
+
+                elif event.key == pygame.K_SPACE:
+
+                    battle.attack(battle.red_robot)
+                    print(battle.arena.board)
 
         draw_window(battle)
 

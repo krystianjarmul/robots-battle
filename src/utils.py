@@ -27,3 +27,10 @@ def get_shift(facing: List[int], number: int) -> Position:
 
     elif facing_idx == 3:
         return 0, -number
+
+
+def is_field_correct(field: Position) -> bool:
+    if field[0] in range(0, 6) and field[1] in range(0, 6):
+        return True
+    return False
+

@@ -1,4 +1,4 @@
-from src.utils import get_turned_matrix, get_shift
+from src.utils import get_turned_matrix, get_shift, is_field_correct
 
 
 def test_turn_matrix_once():
@@ -50,3 +50,14 @@ def test_get_position_with_proper_signs():
     assert y4 == -1
     assert [y1, x2, y3, x4] == [0, 0, 0, 0]
 
+
+def test_field_is_validated():
+    field1 = (3, 3)
+    field2 = (3, 7)
+    field3 = (6, 6)
+    field4 = (6, 2)
+
+    assert is_field_correct(field1)
+    assert not is_field_correct(field2)
+    assert not is_field_correct(field3)
+    assert not is_field_correct(field4)

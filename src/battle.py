@@ -4,7 +4,7 @@ from typing import List
 from src.arena import Arena
 from src.robot import Robot, ActivatedRobot, DeactivatedRobot
 from src.base import Move, Direction, Team, Position
-from src.utils import get_turned_matrix, get_shift
+from src.utils import get_turned_matrix, get_shift, is_field_correct
 from src import weapon
 from src import body
 
@@ -46,11 +46,12 @@ class Battle:
 
     def attack(self, robot: ActivatedRobot, idx: int = 0):
         weapon = robot.attack(idx)
-        attack_fields = self._get_attack_fields(robot, weapon)
+        attack_fields = self.get_attack_fields(robot, weapon)
 
         attacked_positions = [
             field for field in attack_fields
             if self.arena.board[field[0]][field[1]] == 'x'
+            and is_field_correct(field)
         ]
 
         self._subtract_hp(attacked_positions)
@@ -72,7 +73,7 @@ class Battle:
         self._set_robot(Team.BLUE)
         self._set_deactivated_robots()
 
-    def _get_attack_fields(
+    def get_attack_fields(
             self, robot: ActivatedRobot, weapon: weapon.Weapon
     ) -> List[Position]:
         facing_idx = robot.facing.index(1)
