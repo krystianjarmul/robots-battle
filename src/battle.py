@@ -40,6 +40,10 @@ class Battle:
 
         self._subtract_hp(attacked_positions)
 
+    def die(self, robot: Robot):
+        if isinstance(robot, DeactivatedRobot):
+            self.deactivated_robots.pop(robot.id)
+
     def _init_robots(self):
         self._set_robot(Team.RED)
         self._set_robot(Team.BLUE)

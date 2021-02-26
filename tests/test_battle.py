@@ -128,4 +128,28 @@ def test_attack_subtract_hp_of_attacked_deactivated_robot():
     deactivated_robot = get_robot(battle, (2, 3))
 
     battle.attack(red_robot)
+
     assert deactivated_robot.hp == 0
+
+
+def test_after_death_robot_is_removed():
+    battle = Battle()
+    battle.arena.init()
+    battle._set_deactivated_robots()
+    robot = battle.deactivated_robots[2]
+
+    battle.die(robot)
+
+    assert len(battle.deactivated_robots) == 7
+    assert robot.id not in [robot.id for robot in battle.deactivated_robots]
+
+
+
+# def test_drop_item_when_robot_dies():
+#     battle = Battle()
+#     robot = get_robot(battle, (2, 3))
+#
+#     robot.hp -= 1
+#
+#     assert battle.arena.board[2][3] == '*'
+#     assert battle.deactivated_robots
