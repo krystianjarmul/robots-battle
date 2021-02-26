@@ -111,12 +111,11 @@ class Battle:
             self.blue_robot.position = (5, robot_blue_position_y)
 
     def _set_deactivated_robots(self):
-        battleground = self.arena.board[1:-1]
         robots_position = [
             (row_idx, col_idx)
-            for row_idx, row in enumerate(battleground)
+            for row_idx, row in enumerate(self.arena.board)
             for col_idx, col in enumerate(row)
-            if col == 'x'
+            if col == 'x' and row_idx not in [0, 5]
         ]
 
         for robot, position in zip(self.deactivated_robots, robots_position):

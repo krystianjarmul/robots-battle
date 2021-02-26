@@ -21,6 +21,10 @@ ATTACK_IMAGE = pygame.image.load(
     os.path.join(BASEDIR, 'static', 'attack.png')
 )
 
+DEACTIVATED_ROBOT_IMAGE = pygame.image.load(
+    os.path.join(BASEDIR, 'static', 'deactivated_robot.png')
+)
+
 
 def draw_window(battle):
     WIN.fill(WHITE)
@@ -36,6 +40,15 @@ def draw_window(battle):
             battle.red_robot.position[0] * 100
         )
     )
+
+    for robot in battle.deactivated_robots:
+        WIN.blit(
+            DEACTIVATED_ROBOT_IMAGE,
+            (
+                robot.position[1] * 100,
+                robot.position[0] * 100
+            )
+        )
     pygame.display.update()
 
 
@@ -53,6 +66,7 @@ def main():
                 run = False
 
             if event.type == pygame.KEYDOWN:
+
                 if event.key == pygame.K_UP:
                     battle.turn(battle.red_robot, Direction.NORTH)
                     battle.move(battle.red_robot, Move.UP)
