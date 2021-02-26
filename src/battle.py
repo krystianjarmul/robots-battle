@@ -47,9 +47,8 @@ class Battle:
 
     def attack(self, robot: ActivatedRobot, idx: int = 0):
         weapon = robot.attack(idx)
-        attack_fields = self.get_attack_fields(robot, weapon)
-
-        validate_fields(attack_fields)
+        attack_fields = self._get_attack_fields(robot, weapon)
+        attack_fields = validate_fields(attack_fields)
 
         attacked_positions = [
             field for field in attack_fields
@@ -74,7 +73,7 @@ class Battle:
         self._set_robot(Team.BLUE)
         self._set_deactivated_robots()
 
-    def get_attack_fields(
+    def _get_attack_fields(
             self, robot: ActivatedRobot, weapon: weapon.Weapon
     ) -> List[Position]:
         facing_idx = robot.facing.index(1)

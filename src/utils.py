@@ -30,12 +30,11 @@ def get_shift(facing: List[int], number: int) -> Position:
 
 
 def is_field_correct(field: Position) -> bool:
-    if field[0] in range(0, 6) and field[1] in range(0, 6):
-        return True
-    return False
+    field_indices = list(range(0, 6))
+    if field[0] not in field_indices or field[1] not in field_indices:
+        return False
+    return True
 
 
-def validate_fields(fields: List[Position]):
-    for field in fields:
-        if not is_field_correct(field):
-            fields.remove(field)
+def validate_fields(fields: List[Position]) -> List[Position]:
+    return [field for field in fields if is_field_correct(field)]

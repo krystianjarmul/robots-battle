@@ -26,6 +26,20 @@ DEACTIVATED_ROBOT_IMAGE = pygame.image.load(
 )
 
 
+def render_deactivated_robots(battle):
+    for robot in battle.deactivated_robots:
+        if robot.hp:
+            WIN.blit(
+                DEACTIVATED_ROBOT_IMAGE,
+                (
+                    robot.position[1] * 100,
+                    robot.position[0] * 100
+                )
+            )
+        else:
+            battle.die(robot)
+
+
 def draw_window(battle):
     WIN.fill(WHITE)
 
@@ -49,17 +63,7 @@ def draw_window(battle):
         )
     )
 
-    for robot in battle.deactivated_robots:
-        if robot.hp:
-            WIN.blit(
-                DEACTIVATED_ROBOT_IMAGE,
-                (
-                    robot.position[1] * 100,
-                    robot.position[0] * 100
-                )
-            )
-        else:
-            battle.die(robot)
+    render_deactivated_robots(battle)
 
     pygame.display.update()
 
@@ -108,9 +112,7 @@ def main():
                     battle.turn(battle.red_robot, Direction.EAST)
 
                 elif event.key == pygame.K_SPACE:
-
                     battle.attack(battle.red_robot)
-                    print(battle.arena.board)
 
         draw_window(battle)
 

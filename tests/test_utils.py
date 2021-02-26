@@ -57,16 +57,20 @@ def test_field_is_validated():
     field2 = (3, 7)
     field3 = (6, 6)
     field4 = (6, 2)
+    field5 = (4, 7)
+    field6 = (1, 8)
 
     assert is_field_correct(field1)
     assert not is_field_correct(field2)
     assert not is_field_correct(field3)
     assert not is_field_correct(field4)
+    assert not is_field_correct(field5)
+    assert not is_field_correct(field6)
 
 
 def test_validate_attack_fields():
-    fields = [(3, 5), (3, 6)]
+    fields = [(3, 5), (3, 6), (5, 8), (1, 8)]
 
-    validate_fields(fields)
+    fields = validate_fields(fields)
 
     assert fields == [(3, 5)]
