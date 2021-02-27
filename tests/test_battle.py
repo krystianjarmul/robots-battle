@@ -157,9 +157,34 @@ def test_drop_item_when_robot_dies():
 
 
 def test_drop_item_drops_random_weapon_or_body():
+    random.seed(2021)
     battle = Battle()
 
-    random.seed(2021)
     battle.drop_item((2, 3))
 
     assert battle.items == [body.BattleBody()]
+    assert not battle.items[0].picked
+
+
+def test_pick_item_weapon_add_it_to_its_weapons():
+    random.seed(2020)
+    battle = Battle()
+    robot = get_robot(battle, (2, 4), red=True)
+
+    battle.drop_item((2, 4))
+    battle.pick_item(robot)
+
+    assert len(robot.weapons) == 2
+    assert battle.items[0].picked
+
+
+def test_pick_item_if_robot_stands_on_items_field():
+    random.seed(2021)
+    battle = Battle()
+    robot = get_robot(battle, (2, 3), red=True)
+    battle.drop_item((2, 4))
+
+    battle.move(robot, Move.RIGHT)
+
+    assert battle.red_robot.bodies == [body.SimpleBody(), body.BattleBody()]
+    assert battle.items[0].picked

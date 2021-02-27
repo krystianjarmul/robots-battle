@@ -68,8 +68,7 @@ class Arena:
         return destination
 
     def drop_item(self, position: Position):
-        if self.board[position[0]][position[1]] == 'x':
-            self.board[position[0]][position[1]] = '*'
+        self.board[position[0]][position[1]] = '*'
 
     def _set_red_team(self):
         idx = random.randint(0, 5)

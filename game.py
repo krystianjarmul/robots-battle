@@ -33,13 +33,14 @@ ITEM_IMAGE = pygame.image.load(
 
 def render_items(battle):
     for item in battle.items:
-        WIN.blit(
-            ITEM_IMAGE,
-            (
-                item.position[1] * 100,
-                item.position[0] * 100
+        if not item.picked:
+            WIN.blit(
+                ITEM_IMAGE,
+                (
+                    item.position[1] * 100,
+                    item.position[0] * 100
+                )
             )
-        )
 
 
 def render_deactivated_robots(battle):
@@ -54,7 +55,6 @@ def render_deactivated_robots(battle):
             )
         else:
             battle.die(robot)
-            print(battle.items[0].position)
 
 
 def render_activated_robot(robot):

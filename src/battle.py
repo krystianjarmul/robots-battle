@@ -39,8 +39,9 @@ class Battle:
 
     def move(self, robot: ActivatedRobot, move: Move):
         position = robot.position
-        dest = self.arena.move(position, move)
-        robot.position = dest
+        destination = self.arena.move(position, move)
+        robot.position = destination
+        self.pick_item(robot)
 
     def turn(self, robot: ActivatedRobot, direction: Direction):
         robot.turn(direction)
@@ -65,6 +66,15 @@ class Battle:
         item = random.choice(ITEMS)()
         item.position = position
         self.items.append(item)
+
+    def pick_item(self, robot: Robot):
+        for item in self.items:
+            if item.position == robot.position:
+                if isinstance(item, weapon.Weapon):
+                    robot.weapons.append(item)
+                elif isinstance(item, body.Body):
+                    robot.bodies.append(item)
+                item.picked = True
 
     def get_attack_fields(
             self, robot: ActivatedRobot, weapon_idx: int = 0
