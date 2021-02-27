@@ -66,11 +66,6 @@ class Battle:
         item.position = position
         self.items.append(item)
 
-    def _init_robots(self):
-        self._set_robot(Team.RED)
-        self._set_robot(Team.BLUE)
-        self._set_deactivated_robots()
-
     def get_attack_fields(
             self, robot: ActivatedRobot, weapon_idx: int = 0
     ) -> List[Position]:
@@ -99,6 +94,11 @@ class Battle:
         ]
 
         return validate_fields(attack_fields)
+
+    def _init_robots(self):
+        self._set_robot(Team.RED)
+        self._set_robot(Team.BLUE)
+        self._set_deactivated_robots()
 
     def _set_robot(self, team: Team):
         if team.name == 'RED':

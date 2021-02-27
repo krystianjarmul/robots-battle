@@ -26,6 +26,21 @@ DEACTIVATED_ROBOT_IMAGE = pygame.image.load(
     os.path.join(BASEDIR, 'static', 'deactivated_robot.png')
 )
 
+ITEM_IMAGE = pygame.image.load(
+    os.path.join(BASEDIR, 'static', 'item.png')
+)
+
+
+def render_items(battle):
+    for item in battle.items:
+        WIN.blit(
+            ITEM_IMAGE,
+            (
+                item.position[1] * 100,
+                item.position[0] * 100
+            )
+        )
+
 
 def render_deactivated_robots(battle):
     for robot in battle.deactivated_robots:
@@ -39,6 +54,7 @@ def render_deactivated_robots(battle):
             )
         else:
             battle.die(robot)
+            print(battle.items[0].position)
 
 
 def render_activated_robot(robot):
@@ -75,6 +91,7 @@ def draw_window(battle, attacks=False):
     render_activated_robot(battle.red_robot)
     render_activated_robot(battle.blue_robot)
     render_deactivated_robots(battle)
+    render_items(battle)
 
     pygame.display.update()
 
