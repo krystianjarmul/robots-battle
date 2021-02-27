@@ -6,8 +6,8 @@ Matrix = List[List[int]]
 
 
 class Item:
+    name: str
     position: Position
-    picked: bool = False
 
 
 class Move(enum.Enum):

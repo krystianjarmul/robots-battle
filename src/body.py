@@ -4,7 +4,6 @@ from src.base import Item
 class Body(Item):
 
     def __init__(self):
-        self.name: str
         self.hp: str
 
     def __eq__(self, other):

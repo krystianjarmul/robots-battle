@@ -163,7 +163,6 @@ def test_drop_item_drops_random_weapon_or_body():
     battle.drop_item((2, 3))
 
     assert battle.items == [body.BattleBody()]
-    assert not battle.items[0].picked
 
 
 def test_pick_item_weapon_add_it_to_its_weapons():
@@ -175,7 +174,7 @@ def test_pick_item_weapon_add_it_to_its_weapons():
     battle.pick_item(robot)
 
     assert len(robot.weapons) == 2
-    assert battle.items[0].picked
+    assert battle.items == []
 
 
 def test_pick_item_if_robot_stands_on_items_field():
@@ -187,4 +186,4 @@ def test_pick_item_if_robot_stands_on_items_field():
     battle.move(robot, Move.RIGHT)
 
     assert battle.red_robot.bodies == [body.SimpleBody(), body.BattleBody()]
-    assert battle.items[0].picked
+    assert battle.items == []

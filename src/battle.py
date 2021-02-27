@@ -68,13 +68,17 @@ class Battle:
         self.items.append(item)
 
     def pick_item(self, robot: Robot):
-        for item in self.items:
-            if item.position == robot.position:
-                if isinstance(item, weapon.Weapon):
-                    robot.weapons.append(item)
-                elif isinstance(item, body.Body):
-                    robot.bodies.append(item)
-                item.picked = True
+        try:
+            item = next(
+                item for item in self.items if item.position == robot.position
+            )
+            if isinstance(item, weapon.Weapon):
+                robot.weapons.append(item)
+            else:
+                robot.bodies.append(item)
+            self.items.remove(item)
+        except StopIteration:
+            return
 
     def get_attack_fields(
             self, robot: ActivatedRobot, weapon_idx: int = 0

@@ -6,6 +6,7 @@ import pygame
 from src.base import Move, Direction
 from src.battle import Battle
 
+
 WIDTH, HEIGHT = 600, 600
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Robots Battle")
@@ -33,14 +34,13 @@ ITEM_IMAGE = pygame.image.load(
 
 def render_items(battle):
     for item in battle.items:
-        if not item.picked:
-            WIN.blit(
-                ITEM_IMAGE,
-                (
-                    item.position[1] * 100,
-                    item.position[0] * 100
-                )
+        WIN.blit(
+            ITEM_IMAGE,
+            (
+                item.position[1] * 100,
+                item.position[0] * 100
             )
+        )
 
 
 def render_deactivated_robots(battle):
