@@ -19,7 +19,7 @@ class SimpleBody(Body):
 
     def __init__(self):
         super().__init__()
-        self.name = 'Simple Body'
+        self.name = 'SIMPLE BODY'
         self.hp = 2
 
 
@@ -27,7 +27,7 @@ class HardBody(Body):
 
     def __init__(self):
         super().__init__()
-        self.name = 'Hard Body'
+        self.name = 'HARD BODY'
         self.hp = 5
 
 
@@ -35,7 +35,7 @@ class LightBody(Body):
 
     def __init__(self):
         super().__init__()
-        self.name = 'Light Body'
+        self.name = 'LIGHT BODY'
         self.hp = 3
         self.movement = 1
 
@@ -44,6 +44,6 @@ class BattleBody(Body):
 
     def __init__(self):
         super().__init__()
-        self.name = 'Battle Body'
+        self.name = 'BATTLE BODY'
         self.hp = 2
         self.adds_slot = True

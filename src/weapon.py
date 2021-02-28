@@ -20,7 +20,7 @@ class BasicShot(Weapon):
 
     def __init__(self):
         super().__init__()
-        self.name = 'Basic Shot'
+        self.name = 'BASIC SHOT'
         self.directions = [[0, 1, 0], [0, 0, 0], [0, 0, 0]]
         self.range = [[0, 2, 0], [0, 0, 0], [0, 0, 0]]
 
@@ -29,7 +29,7 @@ class Laser(Weapon):
 
     def __init__(self):
         super().__init__()
-        self.name = 'Laser'
+        self.name = 'LASER'
         self.directions = [[0, 1, 0], [0, 0, 0], [0, 0, 0]]
         self.range = [[0, 5, 0], [0, 0, 0], [0, 0, 0]]
 
@@ -38,7 +38,7 @@ class Sword(Weapon):
 
     def __init__(self):
         super().__init__()
-        self.name = 'Sword'
+        self.name = 'SWORD'
         self.directions = [[1, 1, 1], [0, 0, 0], [0, 0, 0]]
         self.range = [[1, 1, 1], [0, 0, 0], [0, 0, 0]]
 
@@ -47,7 +47,7 @@ class Explosion(Weapon):
 
     def __init__(self):
         super().__init__()
-        self.name = 'Explosion'
+        self.name = 'EXPLOSION'
         self.directions = [[1, 1, 1], [1, 0, 1], [1, 1, 1]]
         self.range = [[1, 1, 1], [1, 0, 1], [1, 1, 1]]
 
@@ -56,6 +56,6 @@ class DualLaser(Weapon):
 
     def __init__(self):
         super().__init__()
-        self.name = 'Dual Laser'
+        self.name = 'DUAL LASER'
         self.directions = [[0, 0, 0], [1, 0, 1], [0, 0, 0]]
         self.range = [[0, 0, 0], [5, 0, 5], [0, 0, 0]]

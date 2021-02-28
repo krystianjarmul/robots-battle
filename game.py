@@ -98,19 +98,19 @@ def draw_window(battle, attacks=False):
 
 def handle_movement(battle, key):
     if key == pygame.K_UP:
-        battle.turn(battle.red_robot, Direction.NORTH)
+        battle.turn(battle.red_robot, Direction.NORTH, log=False)
         battle.move(battle.red_robot, Move.UP)
 
     elif key == pygame.K_DOWN:
-        battle.turn(battle.red_robot, Direction.SOUTH)
+        battle.turn(battle.red_robot, Direction.SOUTH, log=False)
         battle.move(battle.red_robot, Move.DOWN)
 
     elif key == pygame.K_LEFT:
-        battle.turn(battle.red_robot, Direction.WEST)
+        battle.turn(battle.red_robot, Direction.WEST, log=False)
         battle.move(battle.red_robot, Move.LEFT)
 
     elif key == pygame.K_RIGHT:
-        battle.turn(battle.red_robot, Direction.EAST)
+        battle.turn(battle.red_robot, Direction.EAST, log=False)
         battle.move(battle.red_robot, Move.RIGHT)
 
 

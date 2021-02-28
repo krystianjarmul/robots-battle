@@ -9,6 +9,12 @@ from src.utils import get_turned_matrix, get_shift, is_field_correct, \
 from src import weapon
 from src import body
 
+import logging
+
+logger = logging.getLogger()
+logging.basicConfig(format='%(asctime)s | %(levelname)s | %(message)s')
+logger.setLevel(logging.INFO)
+
 ITEMS = (
     weapon.BasicShot,
     weapon.Sword,
@@ -20,6 +26,9 @@ ITEMS = (
     body.HardBody,
     body.LightBody,
 )
+
+
+# TODO LOGGING AND SELECTING A WEAPON OR BODY
 
 
 class Battle:
@@ -36,15 +45,23 @@ class Battle:
     def start(self):
         self.arena.init()
         self._init_robots()
+        logger.info('The battle has been started.')
 
     def move(self, robot: ActivatedRobot, move: Move):
         position = robot.position
         destination = self.arena.move(position, move)
         robot.position = destination
+        logger.info('Robot %s has moved %s.', robot.team.name, move.name)
         self.pick_item(robot)
 
-    def turn(self, robot: ActivatedRobot, direction: Direction):
+    def turn(self, robot: ActivatedRobot, direction: Direction, log=True):
         robot.turn(direction)
+        if log:
+            logger.info(
+                'Robot %s has turned %s.',
+                robot.team.name,
+                direction.name
+            )
 
     def attack(self, robot: ActivatedRobot, weapon_idx: int = 0):
         attack_fields = self.get_attack_fields(robot, weapon_idx)
@@ -55,11 +72,17 @@ class Battle:
         ]
 
         self._subtract_hp(attacked_positions)
+        logger.info(
+            'Robot %s has used %s.',
+            robot.team.name,
+            robot.weapons[weapon_idx].name
+        )
 
     def die(self, robot: Robot):
         if isinstance(robot, DeactivatedRobot):
             self.deactivated_robots.pop(self.deactivated_robots.index(robot))
         self.drop_item(robot.position)
+        logger.info('Deactivated robot has been destroyed.')
 
     def drop_item(self, position: Position):
         self.arena.drop_item(position)
@@ -74,9 +97,16 @@ class Battle:
             )
             if isinstance(item, weapon.Weapon):
                 robot.weapons.append(item)
+
             else:
                 robot.bodies.append(item)
             self.items.remove(item)
+            logger.info(
+                'Robot %s has picked up %s.',
+                robot.team.name,
+                item.name
+            )
+
         except StopIteration:
             return
 
