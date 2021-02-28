@@ -64,8 +64,8 @@ class Battle:
                 direction.name
             )
 
-    def attack(self, robot: ActivatedRobot, weapon_idx: int = 0):
-        attack_fields = self.get_attack_fields(robot, weapon_idx)
+    def attack(self, robot: ActivatedRobot):
+        attack_fields = self.get_attack_fields(robot)
 
         attacked_positions = [
             field for field in attack_fields
@@ -76,7 +76,7 @@ class Battle:
         logger.info(
             'Robot %s has used %s.',
             robot.team.name,
-            robot.weapons[weapon_idx].name
+            robot.selected_weapon.name
         )
 
     def destroy(self, robot: Robot):
@@ -112,10 +112,8 @@ class Battle:
         except StopIteration:
             return
 
-    def get_attack_fields(
-            self, robot: ActivatedRobot, weapon_idx: int = 0
-    ) -> List[Position]:
-        weapon = robot.attack(weapon_idx)
+    def get_attack_fields(self, robot: ActivatedRobot) -> List[Position]:
+        weapon = robot.attack()
         facing_idx = robot.facing.index(1)
         weapon_range = get_turned_matrix(weapon.range, facing_idx)
         weapon_direction = get_turned_matrix(weapon.directions, facing_idx)

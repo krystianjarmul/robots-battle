@@ -6,6 +6,7 @@ from src.arena import Arena
 from src.robot import ActivatedRobot, DeactivatedRobot
 from src.base import Move, Direction, Team, Item
 from src import body
+from src import weapon
 
 
 def get_robot(battle, pos, facing=[1, 0, 0, 0], blue=False, red=False):
@@ -187,3 +188,16 @@ def test_pick_item_if_robot_stands_on_items_field():
 
     assert battle.red_robot.bodies == [body.SimpleBody(), body.BattleBody()]
     assert battle.items == []
+
+
+# def test_pick_item_select_weapon_successfully():
+#     battle = Battle()
+#     robot = get_robot(battle, (2, 3), red=True)
+#     robot.weapons.append(weapon.Laser())
+#
+#     battle.select_weapon(robot, 1)
+#
+#     assert battle.red_robot.weapon_selected()
+
+
+

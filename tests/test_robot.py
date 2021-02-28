@@ -70,3 +70,10 @@ def test_is_alive_checks_current_robot_hp():
     assert robot2.is_alive() is False
 
 
+def test_select_weapon_successfully():
+    robot = ActivatedRobot(Team.RED)
+    robot.weapons.append(weapon.Laser())
+
+    robot.select_weapon(1)
+
+    assert robot.selected_weapon == weapon.Laser()

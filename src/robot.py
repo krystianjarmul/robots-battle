@@ -26,6 +26,7 @@ class ActivatedRobot(Robot):
         self.movement: int = 1
         self.weapon_slots: int = 1
         self.facing: List[int] = [1, 0, 0, 0]
+        self.selected_weapon = self.weapons[0]
 
     def turn(self, direction: Direction):
         if direction.name == 'NORTH':
@@ -37,9 +38,15 @@ class ActivatedRobot(Robot):
         elif direction.name == 'WEST':
             self.facing = [0, 0, 0, 1]
 
-    def attack(self, idx: int = 0) -> Weapon:
+    def attack(self) -> Weapon:
         try:
-            return self.weapons[idx]
+            return self.selected_weapon
+        except IndexError as e:
+            print(e)
+
+    def select_weapon(self, idx: int):
+        try:
+            self.selected_weapon = self.weapons[idx]
         except IndexError as e:
             print(e)
 
