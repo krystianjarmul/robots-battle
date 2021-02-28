@@ -25,6 +25,7 @@ class Arena:
     def move(self, source: Position, move: Move):
         source_y = source[0]
         source_x = source[1]
+        is_item = False
         if move.name == 'UP':
             destination_y = source_y - 1
             if destination_y < 0:
@@ -32,6 +33,9 @@ class Arena:
 
             elif self.board[destination_y][source_x] == 'x':
                 destination_y = source_y
+
+            elif self.board[destination_y][source_x] == '*':
+                is_item = True
 
             destination = self._get_destination(source, destination_y, move)
 
@@ -43,6 +47,9 @@ class Arena:
             elif self.board[destination_y][source_x] == 'x':
                 destination_y = source_y
 
+            elif self.board[destination_y][source_x] == '*':
+                is_item = True
+
             destination = self._get_destination(source, destination_y, move)
 
         elif move.name == 'LEFT':
@@ -52,6 +59,9 @@ class Arena:
 
             elif self.board[source_y][destination_x] == 'x':
                 destination_x = source_x
+
+            elif self.board[source_y][destination_x] == '*':
+                is_item = True
 
             destination = self._get_destination(source, destination_x, move)
 
@@ -63,9 +73,12 @@ class Arena:
             elif self.board[source_y][destination_x] == 'x':
                 destination_x = source_x
 
+            elif self.board[source_y][destination_x] == '*':
+                is_item = True
+
             destination = self._get_destination(source, destination_x, move)
 
-        return destination
+        return destination, is_item
 
     def drop_item(self, position: Position):
         self.board[position[0]][position[1]] = '*'
@@ -94,7 +107,6 @@ class Arena:
         src_y, src_x = src
         self.board[src_y][src_x] = 0
         if move.name in ['UP', 'DOWN']:
-            self.board[src_y][src_x] = 0
             self.board[dst][src_x] = 'x'
             destination = (dst, src_x)
 

@@ -55,7 +55,7 @@ def test_move_up_successfully():
     arena = Arena()
     arena.board[2][3] = 'x'
 
-    dest = arena.move((2, 3), Move.UP)
+    dest, _ = arena.move((2, 3), Move.UP)
 
     assert arena.board[1][3] == 'x'
     assert arena.board[2][3] == 0
@@ -66,7 +66,7 @@ def test_move_down_successfully():
     arena = Arena()
     arena.board[2][3] = 'x'
 
-    dest = arena.move((2, 3), Move.DOWN)
+    dest, _ = arena.move((2, 3), Move.DOWN)
 
     assert arena.board[3][3] == 'x'
     assert arena.board[2][3] == 0
@@ -77,7 +77,7 @@ def test_move_left_successfully():
     arena = Arena()
     arena.board[2][3] = 'x'
 
-    dest = arena.move((2, 3), Move.LEFT)
+    dest, _ = arena.move((2, 3), Move.LEFT)
 
     assert arena.board[2][2] == 'x'
     assert arena.board[2][3] == 0
@@ -88,7 +88,7 @@ def test_move_right_successfully():
     arena = Arena()
     arena.board[2][3] = 'x'
 
-    dest = arena.move((2, 3), Move.RIGHT)
+    dest, _ = arena.move((2, 3), Move.RIGHT)
 
     assert arena.board[2][4] == 'x'
     assert arena.board[2][3] == 0

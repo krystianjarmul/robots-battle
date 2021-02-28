@@ -28,7 +28,7 @@ ITEMS = (
 )
 
 
-# TODO LOGGING AND SELECTING A WEAPON OR BODY
+# TODO SELECTING A WEAPON OR BODY
 
 
 class Battle:
@@ -49,10 +49,11 @@ class Battle:
 
     def move(self, robot: ActivatedRobot, move: Move):
         position = robot.position
-        destination = self.arena.move(position, move)
+        destination, is_item = self.arena.move(position, move)
         robot.position = destination
         logger.info('Robot %s has moved %s.', robot.team.name, move.name)
-        self.pick_item(robot)
+        if is_item:
+            self.pick_item(robot)
 
     def turn(self, robot: ActivatedRobot, direction: Direction, log=True):
         robot.turn(direction)
@@ -100,6 +101,7 @@ class Battle:
 
             else:
                 robot.bodies.append(item)
+
             self.items.remove(item)
             logger.info(
                 'Robot %s has picked up %s.',
