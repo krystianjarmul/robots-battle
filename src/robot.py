@@ -2,7 +2,8 @@ from typing import List, Optional
 
 from src.body import Body, SimpleBody
 from src.weapon import Weapon, BasicShot
-from src.base import Team, Direction, Position
+from src.base import Team, Direction, Position, Item
+from src.config import logger
 
 
 class Robot:
@@ -39,16 +40,35 @@ class ActivatedRobot(Robot):
             self.facing = [0, 0, 0, 1]
 
     def attack(self) -> Weapon:
-        try:
-            return self.selected_weapon
-        except IndexError as e:
-            print(e)
+        return self.selected_weapon
+
+    def pick(self, item: Item):
+        if isinstance(item, Weapon):
+            if item not in self.weapons:
+                self.weapons.append(item)
+
+        else:
+            if item not in self.bodies:
+                self.bodies.append(item)
 
     def select_weapon(self, idx: int):
         try:
-            self.selected_weapon = self.weapons[idx]
+            if self.selected_weapon != self.weapons[idx]:
+                self.selected_weapon = self.weapons[idx]
+                logger.info(
+                    'Robot %s has selected %s.',
+                    self.team.name,
+                    self.selected_weapon.name
+                )
+            else:
+                logger.info(
+                    '%s is already selected by Robot %s.',
+                    self.selected_weapon.name,
+                    self.team.name2
+                )
+
         except IndexError as e:
-            print(e)
+            logger.error('Cannot select weapon from slot %s.', idx)
 
 
 class DeactivatedRobot(Robot):

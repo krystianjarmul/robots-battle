@@ -163,11 +163,11 @@ def test_drop_item_drops_random_weapon_or_body():
 
     battle.drop_item((2, 3))
 
-    assert battle.items == [body.BattleBody()]
+    assert battle.items == [body.LightBody()]
 
 
 def test_pick_item_weapon_add_it_to_its_weapons():
-    random.seed(2020)
+    random.seed(1)
     battle = Battle()
     robot = get_robot(battle, (2, 4), red=True)
 
@@ -186,18 +186,15 @@ def test_pick_item_if_robot_stands_on_items_field():
 
     battle.move(robot, Move.RIGHT)
 
-    assert battle.red_robot.bodies == [body.SimpleBody(), body.BattleBody()]
+    assert battle.red_robot.bodies == [body.SimpleBody(), body.LightBody()]
     assert battle.items == []
 
 
-# def test_pick_item_select_weapon_successfully():
-#     battle = Battle()
-#     robot = get_robot(battle, (2, 3), red=True)
-#     robot.weapons.append(weapon.Laser())
-#
-#     battle.select_weapon(robot, 1)
-#
-#     assert battle.red_robot.weapon_selected()
+def test_pick_item_select_weapon_successfully():
+    battle = Battle()
+    robot = get_robot(battle, (2, 3), red=True)
+    robot.weapons.append(weapon.Explosion())
 
+    battle.select_weapon(robot, 1)
 
-
+    assert battle.red_robot.selected_weapon == weapon.Explosion()

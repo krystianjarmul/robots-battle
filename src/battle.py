@@ -6,22 +6,16 @@ from src.robot import Robot, ActivatedRobot, DeactivatedRobot
 from src.base import Move, Direction, Team, Position
 from src.utils import get_turned_matrix, get_shift, is_field_correct, \
     validate_fields
+from src.config import logger
 from src import weapon
 from src import body
 
-import logging
-
-logger = logging.getLogger()
-logging.basicConfig(format='%(asctime)s | %(levelname)s | %(message)s')
-logger.setLevel(logging.INFO)
 
 ITEMS = (
-    weapon.BasicShot,
     weapon.Sword,
     weapon.Laser,
     weapon.Explosion,
     weapon.DualLaser,
-    body.SimpleBody,
     body.BattleBody,
     body.HardBody,
     body.LightBody,
@@ -96,11 +90,7 @@ class Battle:
             item = next(
                 item for item in self.items if item.position == robot.position
             )
-            if isinstance(item, weapon.Weapon):
-                robot.weapons.append(item)
-
-            else:
-                robot.bodies.append(item)
+            robot.pick(item)
 
             self.items.remove(item)
             logger.info(
@@ -111,6 +101,9 @@ class Battle:
 
         except StopIteration:
             return
+
+    def select_weapon(self, robot: Robot, idx: int):
+        robot.select_weapon(idx)
 
     def get_attack_fields(self, robot: ActivatedRobot) -> List[Position]:
         weapon = robot.attack()

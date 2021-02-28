@@ -1,7 +1,6 @@
 from src import weapon
+from src import body
 from src.robot import ActivatedRobot, Team, Robot, Direction, DeactivatedRobot
-from src.body import SimpleBody
-from src.weapon import BasicShot
 
 
 def test_robot_belongs_to_blue_or_read_team():
@@ -13,8 +12,8 @@ def test_robot_belongs_to_blue_or_read_team():
 
 def test_robot_at_start_has_default_attributes():
     robot = ActivatedRobot(Team.BLUE)
-    assert robot.bodies == [SimpleBody(), ]
-    assert robot.weapons == [BasicShot(), ]
+    assert robot.bodies == [body.SimpleBody(), ]
+    assert robot.weapons == [weapon.BasicShot(), ]
     assert robot.hp == 2
     assert robot.movement == 1
     assert robot.weapon_slots == 1
@@ -77,3 +76,38 @@ def test_select_weapon_successfully():
     robot.select_weapon(1)
 
     assert robot.selected_weapon == weapon.Laser()
+
+
+def test_cannot_select_weapon_if_weapon_index_not_exist():
+    robot = ActivatedRobot(Team.RED)
+    robot.weapons.append(weapon.Laser())
+
+    robot.select_weapon(2)
+
+    assert robot.selected_weapon == weapon.BasicShot()
+
+
+def test_pick_add_item_to_weapons_or_bodies():
+    robot = ActivatedRobot(Team.RED)
+
+    robot.pick(weapon.Laser())
+
+    assert robot.weapons == [weapon.BasicShot(), weapon.Laser()]
+
+
+def test_weapons_are_unique():
+    robot = ActivatedRobot(Team.RED)
+
+    robot.pick(weapon.Laser())
+    robot.pick(weapon.Laser())
+
+    assert robot.weapons == [weapon.BasicShot(), weapon.Laser()]
+
+
+def test_bodies_are_unique():
+    robot = ActivatedRobot(Team.RED)
+
+    robot.pick(body.HardBody())
+    robot.pick(body.HardBody())
+
+    assert robot.bodies == [body.SimpleBody(), body.HardBody()]

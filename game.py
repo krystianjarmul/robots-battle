@@ -6,7 +6,6 @@ import pygame
 from src.base import Move, Direction
 from src.battle import Battle
 
-
 WIDTH, HEIGHT = 600, 600
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Robots Battle")
@@ -134,6 +133,23 @@ def handle_attack(battle, key):
         render_attack(battle)
 
 
+def handle_select_weapon(battle, key):
+    if key == pygame.K_1:
+        battle.select_weapon(battle.red_robot, 0)
+
+    elif key == pygame.K_2:
+        battle.select_weapon(battle.red_robot, 1)
+
+    elif key == pygame.K_3:
+        battle.select_weapon(battle.red_robot, 2)
+
+    elif key == pygame.K_4:
+        battle.select_weapon(battle.red_robot, 3)
+
+    elif key == pygame.K_5:
+        battle.select_weapon(battle.red_robot, 4)
+
+
 def main():
     clock = pygame.time.Clock()
     battle = Battle()
@@ -151,6 +167,8 @@ def main():
                 handle_turning(battle, event.key)
 
                 handle_attack(battle, event.key)
+
+                handle_select_weapon(battle, event.key)
 
         draw_window(battle)
 
