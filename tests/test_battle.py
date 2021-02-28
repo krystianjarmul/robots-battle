@@ -187,3 +187,14 @@ def test_pick_item_if_robot_stands_on_items_field():
 
     assert battle.red_robot.bodies == [body.SimpleBody(), body.BattleBody()]
     assert battle.items == []
+
+
+def test_can_pick_return_true_if_robot_position_equals_item_position():
+    battle = Battle()
+    robot = get_robot(battle, (2, 4), red=True)
+    battle.drop_item((2, 4))
+    battle.drop_item((3, 5))
+    [item1, item2] = battle.items
+
+    assert battle.can_pick(robot, item1)
+    assert not battle.can_pick(robot, item2)

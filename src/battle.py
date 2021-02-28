@@ -3,7 +3,7 @@ from typing import List
 
 from src.arena import Arena
 from src.robot import Robot, ActivatedRobot, DeactivatedRobot
-from src.base import Move, Direction, Team, Position
+from src.base import Move, Direction, Team, Position, Item
 from src.utils import get_turned_matrix, get_shift, is_field_correct, \
     validate_fields
 from src import weapon
@@ -28,7 +28,7 @@ ITEMS = (
 )
 
 
-# TODO LOGGING AND SELECTING A WEAPON OR BODY
+# TODO SELECTING A WEAPON OR BODY
 
 
 class Battle:
@@ -90,10 +90,15 @@ class Battle:
         item.position = position
         self.items.append(item)
 
+    def can_pick(self, robot: Robot, item: Item) -> bool:
+        if item.position == robot.position:
+            return True
+        return False
+
     def pick_item(self, robot: Robot):
         try:
             item = next(
-                item for item in self.items if item.position == robot.position
+                item for item in self.items if self.can_pick(robot, item)
             )
             if isinstance(item, weapon.Weapon):
                 robot.weapons.append(item)
