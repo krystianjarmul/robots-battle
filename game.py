@@ -54,7 +54,7 @@ def render_deactivated_robots(battle):
                 )
             )
         else:
-            battle.die(robot)
+            battle.destroy(robot)
 
 
 def render_activated_robot(robot):

@@ -79,7 +79,7 @@ class Battle:
             robot.weapons[weapon_idx].name
         )
 
-    def die(self, robot: Robot):
+    def destroy(self, robot: Robot):
         if isinstance(robot, DeactivatedRobot):
             self.deactivated_robots.pop(self.deactivated_robots.index(robot))
         self.drop_item(robot.position)

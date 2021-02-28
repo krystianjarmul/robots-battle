@@ -140,17 +140,17 @@ def test_after_death_deactivated_robot_is_removed():
     battle._set_deactivated_robots()
     robot = battle.deactivated_robots[2]
 
-    battle.die(robot)
+    battle.destroy(robot)
 
     assert len(battle.deactivated_robots) == 7
     assert robot not in battle.deactivated_robots
 
 
-def test_drop_item_when_robot_dies():
+def test_drop_item_when_robot_destroyed():
     battle = Battle()
     robot = get_robot(battle, (2, 3))
 
-    battle.die(robot)
+    battle.destroy(robot)
 
     assert battle.arena.board[2][3] == '*'
     assert isinstance(battle.items[0], Item)
