@@ -1,7 +1,7 @@
 from typing import List, Optional
 
 from src.body import Body, SimpleBody
-from src.weapon import Weapon, BasicShot
+from src.weapon import Weapon, BasicShot, DualLaser, Laser
 from src.base import Team, Direction, Position, Item
 from src.config import logger
 
@@ -64,7 +64,7 @@ class ActivatedRobot(Robot):
                 logger.info(
                     '%s is already selected by Robot %s.',
                     self.selected_weapon.name,
-                    self.team.name2
+                    self.team.name
                 )
 
         except IndexError as e:

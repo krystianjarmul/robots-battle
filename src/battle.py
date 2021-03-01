@@ -10,7 +10,6 @@ from src.config import logger
 from src import weapon
 from src import body
 
-
 ITEMS = (
     weapon.Sword,
     weapon.Laser,
@@ -115,7 +114,8 @@ class Battle:
             {
                 'x_start': robot.position[0] - 1 + row_idx,
                 'y_start': robot.position[1] - 1 + col_idx,
-                'range': weapon_range[row_idx][col_idx]
+                'range': weapon_range[row_idx][col_idx],
+                'direction': self._get_attack_direction(robot, row_idx, col_idx)
             }
             for row_idx, row in enumerate(weapon_direction)
             for col_idx, col in enumerate(row)
@@ -124,13 +124,39 @@ class Battle:
 
         attack_fields = [
             (
-                attr['x_start'] + get_shift(robot.facing, i)[0],
-                attr['y_start'] + get_shift(robot.facing, i)[1]
+                attr['x_start'] + get_shift(robot.facing, i, attr['direction'])[
+                    0],
+                attr['y_start'] + get_shift(robot.facing, i, attr['direction'])[
+                    1]
             )
             for attr in attack_attrs for i in range(attr['range'])
         ]
 
         return validate_fields(attack_fields)
+
+    def _get_attack_direction(
+            self, robot: Robot, row_idx: int, col_idx: int
+    ) -> Direction:
+        y_attack_start = robot.position[0] - 1 + row_idx
+        x_attack_start = robot.position[1] - 1 + col_idx
+        facing_idx = robot.facing.index(1)
+        if facing_idx % 2:
+            if x_attack_start == robot.position[1]:
+                if y_attack_start < robot.position[0]:
+                    return Direction.WEST
+
+                else:
+                    return Direction.EAST
+
+        else:
+            if y_attack_start == robot.position[0]:
+                if x_attack_start < robot.position[1]:
+                    return Direction.WEST
+
+                else:
+                    return Direction.EAST
+
+        return Direction.NORTH
 
     def _init_robots(self):
         self._set_robot(Team.RED)

@@ -1,3 +1,4 @@
+from src.base import Direction
 from src.utils import get_turned_matrix, get_shift, is_field_correct, \
     validate_fields
 
@@ -40,10 +41,10 @@ def test_get_position_with_proper_signs():
     facing_south = [0, 0, 1, 0]
     facing_west = [0, 0, 0, 1]
 
-    x1, y1 = get_shift(facing_north, 1)
-    x2, y2 = get_shift(facing_east, 1)
-    x3, y3 = get_shift(facing_south, 1)
-    x4, y4 = get_shift(facing_west, 1)
+    x1, y1 = get_shift(facing_north, 1, Direction.NORTH)
+    x2, y2 = get_shift(facing_east, 1, Direction.NORTH)
+    x3, y3 = get_shift(facing_south, 1, Direction.NORTH)
+    x4, y4 = get_shift(facing_west, 1, Direction.NORTH)
 
     assert x1 == -1
     assert y2 == 1

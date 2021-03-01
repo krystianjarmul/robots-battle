@@ -14,18 +14,34 @@ def get_turned_matrix(X: Matrix, times: int = 1) -> Matrix:
         return get_turned_matrix(X_turned, times)
 
 
-def get_shift(facing: List[int], number: int) -> Position:
+def get_shift(facing: List[int], number: int, direction) -> Position:
     facing_idx = facing.index(1)
     if facing_idx == 0:
+        if direction.name == 'EAST':
+            return 0, number
+        elif direction.name == 'WEST':
+            return 0, -number
         return -number, 0
 
     elif facing_idx == 1:
+        if direction.name == 'EAST':
+            return number, 0
+        elif direction.name == 'WEST':
+            return -number, 0
         return 0, number
 
     elif facing_idx == 2:
+        if direction.name == 'EAST':
+            return 0, number
+        elif direction.name == 'WEST':
+            return 0, -number
         return number, 0
 
     elif facing_idx == 3:
+        if direction.name == 'EAST':
+            return number, 0
+        elif direction.name == 'WEST':
+            return -number, 0
         return 0, -number
 
 
