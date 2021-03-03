@@ -111,3 +111,13 @@ def test_bodies_are_unique():
     robot.pick(body.HardBody())
 
     assert robot.bodies == [body.SimpleBody(), body.HardBody()]
+
+
+def test_robot_can_select_a_body():
+    robot = ActivatedRobot(Team.BLUE)
+    robot.pick(body.HardBody())
+
+    robot.select_body(1)
+
+    assert robot.selected_body == body.HardBody()
+

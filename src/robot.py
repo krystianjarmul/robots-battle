@@ -28,6 +28,7 @@ class ActivatedRobot(Robot):
         self.weapon_slots: int = 1
         self.facing: List[int] = [1, 0, 0, 0]
         self.selected_weapon = self.weapons[0]
+        self.selected_body = self.bodies[0]
 
     def turn(self, direction: Direction):
         if direction.name == 'NORTH':
@@ -68,7 +69,26 @@ class ActivatedRobot(Robot):
                 )
 
         except IndexError as e:
-            logger.error('Cannot select weapon from slot %s.', idx)
+            logger.error('Cannot select weapon from slot %s.', idx + 1)
+
+    def select_body(self, idx: int):
+        try:
+            if self.selected_body != self.bodies[idx]:
+                self.selected_body = self.bodies[idx]
+                logger.info(
+                    'Robot %s has selected %s.',
+                    self.team.name,
+                    self.selected_body.name
+                )
+            else:
+                logger.info(
+                    '%s is already selected by Robot %s.',
+                    self.selected_body.name,
+                    self.team.name
+                )
+
+        except IndexError as e:
+            logger.error('Cannot select body from slot %s.', idx + 6)
 
 
 class DeactivatedRobot(Robot):
