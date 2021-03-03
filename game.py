@@ -150,6 +150,23 @@ def handle_select_weapon(battle, key):
         battle.select_weapon(battle.red_robot, 4)
 
 
+def handle_select_body(battle, key):
+    if key == pygame.K_6:
+        battle.select_body(battle.red_robot, 0)
+
+    elif key == pygame.K_7:
+        battle.select_body(battle.red_robot, 1)
+
+    elif key == pygame.K_8:
+        battle.select_body(battle.red_robot, 2)
+
+    elif key == pygame.K_9:
+        battle.select_body(battle.red_robot, 3)
+
+    elif key == pygame.K_0:
+        battle.select_body(battle.red_robot, 4)
+
+
 def main():
     clock = pygame.time.Clock()
     battle = Battle()
@@ -169,6 +186,8 @@ def main():
                 handle_attack(battle, event.key)
 
                 handle_select_weapon(battle, event.key)
+
+                handle_select_body(battle, event.key)
 
         draw_window(battle)
 

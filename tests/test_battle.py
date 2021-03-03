@@ -190,7 +190,7 @@ def test_pick_item_if_robot_stands_on_items_field():
     assert battle.items == []
 
 
-def test_pick_item_select_weapon_successfully():
+def test_select_weapon_successfully():
     battle = Battle()
     robot = get_robot(battle, (2, 3), red=True)
     robot.weapons.append(weapon.Explosion())
@@ -198,3 +198,13 @@ def test_pick_item_select_weapon_successfully():
     battle.select_weapon(robot, 1)
 
     assert battle.red_robot.selected_weapon == weapon.Explosion()
+
+
+def test_select_body_successfully():
+    battle = Battle()
+    robot = get_robot(battle, (2, 3), red=True)
+    robot.bodies.append(body.BattleBody())
+
+    battle.select_body(robot, 1)
+
+    assert battle.red_robot.selected_body == body.BattleBody()

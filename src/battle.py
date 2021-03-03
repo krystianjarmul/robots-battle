@@ -21,7 +21,10 @@ ITEMS = (
 )
 
 
-# TODO SELECTING A WEAPON OR BODY
+# TODO EXTRA SLOT FOR BATTLE BODY
+# TODO EXTRA ATTACK ON ENTER
+# TODO SUBTRACTING HP BY ACTIVATED ROBOTS
+# TODO ROUNDS -> MOVE, TURN, ATTACK, SELECT WEAPON
 
 
 class Battle:
@@ -103,6 +106,9 @@ class Battle:
 
     def select_weapon(self, robot: Robot, idx: int):
         robot.select_weapon(idx)
+
+    def select_body(self, robot: Robot, idx: int):
+        robot.select_body(idx)
 
     def get_attack_fields(self, robot: ActivatedRobot) -> List[Position]:
         weapon = robot.attack()

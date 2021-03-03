@@ -74,7 +74,7 @@ class ActivatedRobot(Robot):
                 )
 
         except IndexError as e:
-            logger.error('Cannot select weapon from slot %s.', idx + 1)
+            logger.error('This slot is not available.')
 
     def select_body(self, idx: int):
         try:
@@ -100,7 +100,7 @@ class ActivatedRobot(Robot):
                 )
 
         except IndexError as e:
-            logger.error('Cannot select body from slot %s.', idx + 6)
+            logger.error('This slot is not available.')
 
 
 class DeactivatedRobot(Robot):
