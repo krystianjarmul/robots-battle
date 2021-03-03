@@ -121,3 +121,21 @@ def test_robot_can_select_a_body():
 
     assert robot.selected_body == body.HardBody()
 
+
+def test_select_hard_body_increases_robot_hp():
+    robot = ActivatedRobot(Team.BLUE)
+    robot.pick(body.HardBody())
+
+    robot.select_body(1)
+
+    assert robot.hp == body.HardBody().hp
+
+
+def test_select_light_body_increases_robot_hp_and_movement():
+    robot = ActivatedRobot(Team.BLUE)
+    robot.pick(body.LightBody())
+
+    robot.select_body(1)
+
+    assert robot.hp == body.LightBody().hp
+    assert robot.movement == body.LightBody().movement

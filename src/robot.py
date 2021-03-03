@@ -21,10 +21,10 @@ class ActivatedRobot(Robot):
     def __init__(self, team: Team):
         super().__init__()
         self.team = team
-        self.hp = 2
         self.bodies: List[Body] = [SimpleBody(), ]
         self.weapons: List[Weapon] = [BasicShot(), ]
         self.movement: int = 1
+        self.hp = 2
         self.weapon_slots: int = 1
         self.facing: List[int] = [1, 0, 0, 0]
         self.selected_weapon = self.weapons[0]
@@ -75,6 +75,9 @@ class ActivatedRobot(Robot):
         try:
             if self.selected_body != self.bodies[idx]:
                 self.selected_body = self.bodies[idx]
+                self.hp = self.selected_body.hp
+                if hasattr(self.selected_body, 'movement'):
+                    self.movement = self.selected_body.movement
                 logger.info(
                     'Robot %s has selected %s.',
                     self.team.name,
