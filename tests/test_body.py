@@ -26,4 +26,4 @@ def test_battle_body_attributes():
     battle_body = body.BattleBody()
     assert battle_body.name == 'BATTLE BODY'
     assert battle_body.hp == 2
-    assert battle_body.adds_slot
+    assert battle_body.extra_slot

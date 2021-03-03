@@ -122,7 +122,7 @@ def test_robot_can_select_a_body():
     assert robot.selected_body == body.HardBody()
 
 
-def test_select_hard_body_increases_robot_hp():
+def test_wear_hard_body_increases_robot_hp():
     robot = ActivatedRobot(Team.BLUE)
     robot.pick(body.HardBody())
 
@@ -131,7 +131,7 @@ def test_select_hard_body_increases_robot_hp():
     assert robot.hp == body.HardBody().hp
 
 
-def test_select_light_body_increases_robot_hp_and_movement():
+def test_wear_light_body_increases_robot_hp_and_movement():
     robot = ActivatedRobot(Team.BLUE)
     robot.pick(body.LightBody())
 
@@ -139,3 +139,12 @@ def test_select_light_body_increases_robot_hp_and_movement():
 
     assert robot.hp == body.LightBody().hp
     assert robot.movement == body.LightBody().movement
+
+
+def test_wear_battle_body_increases_robot_add_extra_weapon_slot():
+    robot = ActivatedRobot(Team.BLUE)
+    robot.pick(body.BattleBody())
+
+    robot.select_body(1)
+
+    assert robot.extra_slot == body.BattleBody().extra_slot

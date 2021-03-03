@@ -46,4 +46,4 @@ class BattleBody(Body):
         super().__init__()
         self.name = 'BATTLE BODY'
         self.hp = 2
-        self.adds_slot = True
+        self.extra_slot = True

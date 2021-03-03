@@ -27,16 +27,20 @@ class ActivatedRobot(Robot):
         self.hp = 2
         self.weapon_slots: int = 1
         self.facing: List[int] = [1, 0, 0, 0]
-        self.selected_weapon = self.weapons[0]
-        self.selected_body = self.bodies[0]
+        self.selected_weapon: Weapon = self.weapons[0]
+        self.selected_body: Body = self.bodies[0]
+        self.extra_slot: bool = False
 
     def turn(self, direction: Direction):
         if direction.name == 'NORTH':
             self.facing = [1, 0, 0, 0]
+
         elif direction.name == 'EAST':
             self.facing = [0, 1, 0, 0]
+
         elif direction.name == 'SOUTH':
             self.facing = [0, 0, 1, 0]
+
         elif direction.name == 'WEST':
             self.facing = [0, 0, 0, 1]
 
@@ -61,6 +65,7 @@ class ActivatedRobot(Robot):
                     self.team.name,
                     self.selected_weapon.name
                 )
+
             else:
                 logger.info(
                     '%s is already selected by Robot %s.',
@@ -78,6 +83,10 @@ class ActivatedRobot(Robot):
                 self.hp = self.selected_body.hp
                 if hasattr(self.selected_body, 'movement'):
                     self.movement = self.selected_body.movement
+
+                elif hasattr(self.selected_body, 'extra_slot'):
+                    self.extra_slot = self.selected_body.extra_slot
+
                 logger.info(
                     'Robot %s has selected %s.',
                     self.team.name,
