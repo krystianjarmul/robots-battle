@@ -203,3 +203,14 @@ def test_attack_returns_extra_weapon_if_extra_parameter():
     extra_weapon = robot.attack(extra=True)
 
     assert extra_weapon == weapon.Laser()
+
+
+def test_switch_from_battle_body_to_another_set_extra_slot_on_false():
+    robot = ActivatedRobot(Team.BLUE)
+    robot.pick(body.BattleBody())
+    robot.pick(body.HardBody())
+
+    robot.select_body(1)
+    robot.select_body(2)
+
+    assert not robot.extra_slot

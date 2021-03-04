@@ -21,7 +21,6 @@ ITEMS = (
 )
 
 
-# TODO EXTRA ATTACK ON ENTER
 # TODO SUBTRACTING HP BY ACTIVATED ROBOTS
 # TODO ROUNDS -> MOVE, TURN, ATTACK, SELECT WEAPON
 
@@ -59,8 +58,8 @@ class Battle:
                 direction.name
             )
 
-    def attack(self, robot: ActivatedRobot):
-        attack_fields = self.get_attack_fields(robot)
+    def attack(self, robot: ActivatedRobot, extra=False):
+        attack_fields = self.get_attack_fields(robot, extra)
 
         attacked_positions = [
             field for field in attack_fields
@@ -71,7 +70,7 @@ class Battle:
         logger.info(
             'Robot %s has used %s.',
             robot.team.name,
-            robot.selected_weapon.name
+            robot.selected_weapon.name if not extra else robot.extra_weapon.name
         )
 
     def destroy(self, robot: Robot):
@@ -112,8 +111,10 @@ class Battle:
     def select_extra_weapon(self, robot: Robot, idx: int):
         robot.select_extra_weapon(idx)
 
-    def get_attack_fields(self, robot: ActivatedRobot) -> List[Position]:
-        weapon = robot.attack()
+    def get_attack_fields(
+            self, robot: ActivatedRobot, extra=False
+    ) -> List[Position]:
+        weapon = robot.attack(extra)
         facing_idx = robot.facing.index(1)
         weapon_range = get_turned_matrix(weapon.range, facing_idx)
         weapon_direction = get_turned_matrix(weapon.directions, facing_idx)

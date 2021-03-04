@@ -1,6 +1,6 @@
 from typing import List, Optional
 
-from src.body import Body, SimpleBody
+from src.body import Body, SimpleBody, BattleBody
 from src.weapon import Weapon, BasicShot, DualLaser, Laser
 from src.base import Team, Direction, Position, Item
 from src.config import logger
@@ -88,8 +88,11 @@ class ActivatedRobot(Robot):
                 if hasattr(self.selected_body, 'movement'):
                     self.movement = self.selected_body.movement
 
-                elif hasattr(self.selected_body, 'extra_slot'):
+                if hasattr(self.selected_body, 'extra_slot'):
                     self.extra_slot = self.selected_body.extra_slot
+
+                else:
+                    self.extra_slot = False
 
                 logger.info(
                     'Robot %s has selected %s.',
@@ -117,7 +120,7 @@ class ActivatedRobot(Robot):
             ]:
                 self.extra_weapon = self.weapons[idx]
                 logger.info(
-                    'Robot %s has selected %s.',
+                    'Robot %s has selected extra %s.',
                     self.team.name,
                     self.extra_weapon.name
                 )

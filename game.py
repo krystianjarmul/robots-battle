@@ -70,9 +70,9 @@ def render_activated_robot(robot):
     )
 
 
-def render_attack(battle):
+def render_attack(battle, extra=False):
     robot = battle.red_robot
-    for field in battle.get_attack_fields(robot):
+    for field in battle.get_attack_fields(robot, extra):
         WIN.blit(
             ATTACK_IMAGE,
             (
@@ -133,9 +133,9 @@ def handle_attack(battle, key):
         render_attack(battle)
 
     elif key == pygame.K_RETURN:
-        if battle.red_robot.extra_slot:
-            battle.attack(battle.red_robot)
-            render_attack(battle)
+        if battle.red_robot.extra_slot and battle.red_robot.extra_weapon:
+            battle.attack(battle.red_robot, extra=True)
+            render_attack(battle, extra=True)
 
 
 def handle_select_weapon(battle, key):
@@ -170,8 +170,6 @@ def handle_select_weapon(battle, key):
             battle.select_extra_weapon(battle.red_robot, 4)
         else:
             battle.select_weapon(battle.red_robot, 4)
-
-
 
 
 def handle_select_body(battle, key):
