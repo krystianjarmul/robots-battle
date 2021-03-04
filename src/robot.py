@@ -45,7 +45,10 @@ class ActivatedRobot(Robot):
         elif direction.name == 'WEST':
             self.facing = [0, 0, 0, 1]
 
-    def attack(self) -> Weapon:
+    def attack(self, extra=False) -> Weapon:
+        if extra:
+            return self.extra_weapon
+
         return self.selected_weapon
 
     def pick(self, item: Item):

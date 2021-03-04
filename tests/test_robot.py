@@ -192,3 +192,14 @@ def test_select_extra_weapon_for_the_same_slot_does_nothing():
     robot.select_extra_weapon(2)
 
     assert robot.extra_weapon == weapon.Sword()
+
+
+def test_attack_returns_extra_weapon_if_extra_parameter():
+    robot = ActivatedRobot(Team.BLUE)
+    robot.pick(weapon.Laser())
+    robot.extra_slot = True
+    robot.select_extra_weapon(1)
+
+    extra_weapon = robot.attack(extra=True)
+
+    assert extra_weapon == weapon.Laser()

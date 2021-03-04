@@ -143,21 +143,33 @@ def handle_select_weapon(battle, key):
 
     if key == pygame.K_1:
         if mods & pygame.KMOD_CTRL:
-            battle.se
+            battle.select_extra_weapon(battle.red_robot, 0)
         else:
             battle.select_weapon(battle.red_robot, 0)
 
     elif key == pygame.K_2:
-        battle.select_weapon(battle.red_robot, 1)
+        if mods & pygame.KMOD_CTRL:
+            battle.select_extra_weapon(battle.red_robot, 1)
+        else:
+            battle.select_weapon(battle.red_robot, 1)
 
     elif key == pygame.K_3:
-        battle.select_weapon(battle.red_robot, 2)
+        if mods & pygame.KMOD_CTRL:
+            battle.select_extra_weapon(battle.red_robot, 2)
+        else:
+            battle.select_weapon(battle.red_robot, 2)
 
     elif key == pygame.K_4:
-        battle.select_weapon(battle.red_robot, 3)
+        if mods & pygame.KMOD_CTRL:
+            battle.select_extra_weapon(battle.red_robot, 3)
+        else:
+            battle.select_weapon(battle.red_robot, 3)
 
     elif key == pygame.K_5:
-        battle.select_weapon(battle.red_robot, 4)
+        if mods & pygame.KMOD_CTRL:
+            battle.select_extra_weapon(battle.red_robot, 4)
+        else:
+            battle.select_weapon(battle.red_robot, 4)
 
 
 
