@@ -132,10 +132,20 @@ def handle_attack(battle, key):
         battle.attack(battle.red_robot)
         render_attack(battle)
 
+    elif key == pygame.K_RETURN:
+        if battle.red_robot.extra_slot:
+            battle.attack(battle.red_robot)
+            render_attack(battle)
+
 
 def handle_select_weapon(battle, key):
+    mods = pygame.key.get_mods()
+
     if key == pygame.K_1:
-        battle.select_weapon(battle.red_robot, 0)
+        if mods & pygame.KMOD_CTRL:
+            print('extra weapon')
+        else:
+            battle.select_weapon(battle.red_robot, 0)
 
     elif key == pygame.K_2:
         battle.select_weapon(battle.red_robot, 1)
@@ -148,6 +158,8 @@ def handle_select_weapon(battle, key):
 
     elif key == pygame.K_5:
         battle.select_weapon(battle.red_robot, 4)
+
+
 
 
 def handle_select_body(battle, key):

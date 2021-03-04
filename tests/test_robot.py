@@ -148,3 +148,47 @@ def test_wear_battle_body_increases_robot_add_extra_weapon_slot():
     robot.select_body(1)
 
     assert robot.extra_slot == body.BattleBody().extra_slot
+
+
+def test_cannot_select_extra_weapon_if_not_extra_slot():
+    robot = ActivatedRobot(Team.BLUE)
+    robot.pick(weapon.Laser())
+    robot.pick(weapon.Sword())
+
+    robot.select_extra_weapon(2)
+
+    assert robot.extra_weapon is None
+
+
+def test_select_extra_weapon_successfully():
+    robot = ActivatedRobot(Team.BLUE)
+    robot.pick(weapon.Laser())
+    robot.pick(weapon.Sword())
+    robot.extra_slot = True
+
+    robot.select_extra_weapon(2)
+
+    assert robot.extra_weapon == weapon.Sword()
+
+
+def test_cannot_select_extra_weapon_if_slot_is_busy():
+    robot = ActivatedRobot(Team.BLUE)
+    robot.pick(weapon.Laser())
+    robot.pick(weapon.Sword())
+    robot.extra_slot = True
+
+    robot.select_extra_weapon(0)
+
+    assert robot.extra_weapon is None
+
+
+def test_select_extra_weapon_for_the_same_slot_does_nothing():
+    robot = ActivatedRobot(Team.BLUE)
+    robot.pick(weapon.Laser())
+    robot.pick(weapon.Sword())
+    robot.extra_slot = True
+
+    robot.select_extra_weapon(2)
+    robot.select_extra_weapon(2)
+
+    assert robot.extra_weapon == weapon.Sword()

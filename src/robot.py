@@ -30,6 +30,7 @@ class ActivatedRobot(Robot):
         self.selected_weapon: Weapon = self.weapons[0]
         self.selected_body: Body = self.bodies[0]
         self.extra_slot: bool = False
+        self.extra_weapon: Optional[Weapon] = None
 
     def turn(self, direction: Direction):
         if direction.name == 'NORTH':
@@ -73,7 +74,7 @@ class ActivatedRobot(Robot):
                     self.team.name
                 )
 
-        except IndexError as e:
+        except IndexError:
             logger.error('This slot is not available.')
 
     def select_body(self, idx: int):
@@ -99,7 +100,33 @@ class ActivatedRobot(Robot):
                     self.team.name
                 )
 
-        except IndexError as e:
+        except IndexError:
+            logger.error('This slot is not available.')
+
+    def select_extra_weapon(self, idx: int):
+        if not self.extra_slot:
+            return
+
+        try:
+            if self.weapons[idx] not in [
+                self.extra_weapon,
+                self.selected_weapon
+            ]:
+                self.extra_weapon = self.weapons[idx]
+                logger.info(
+                    'Robot %s has selected %s.',
+                    self.team.name,
+                    self.extra_weapon.name
+                )
+
+            else:
+                logger.info(
+                    '%s is already selected by Robot %s.',
+                    self.selected_body.name,
+                    self.team.name
+                )
+
+        except IndexError:
             logger.error('This slot is not available.')
 
 
