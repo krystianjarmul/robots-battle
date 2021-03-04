@@ -109,6 +109,9 @@ class Battle:
     def select_body(self, robot: Robot, idx: int):
         robot.select_body(idx)
 
+    def select_extra_weapon(self, robot: Robot, idx: int):
+        robot.select_extra_weapon(idx)
+
     def get_attack_fields(self, robot: ActivatedRobot) -> List[Position]:
         weapon = robot.attack()
         facing_idx = robot.facing.index(1)

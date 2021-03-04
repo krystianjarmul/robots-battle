@@ -208,3 +208,14 @@ def test_select_body_successfully():
     battle.select_body(robot, 1)
 
     assert battle.red_robot.selected_body == body.BattleBody()
+
+
+def test_select_extra_weapon_successfully():
+    battle = Battle()
+    robot = get_robot(battle, (2, 3), red=True)
+    robot.pick(weapon.Explosion())
+    robot.extra_slot = True
+
+    battle.select_extra_weapon(robot, 1)
+
+    assert battle.red_robot.extra_weapon == weapon.Explosion()

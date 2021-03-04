@@ -143,7 +143,7 @@ def handle_select_weapon(battle, key):
 
     if key == pygame.K_1:
         if mods & pygame.KMOD_CTRL:
-            print('extra weapon')
+            battle.se
         else:
             battle.select_weapon(battle.red_robot, 0)
 
