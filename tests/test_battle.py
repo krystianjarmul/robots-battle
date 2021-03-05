@@ -219,3 +219,15 @@ def test_select_extra_weapon_successfully():
     battle.select_extra_weapon(robot, 1)
 
     assert battle.red_robot.extra_weapon == weapon.Explosion()
+
+
+def test_activated_robot_is_destroyed_if_its_hp_is_zero():
+    battle = Battle()
+    red_robot = get_robot(battle, (3, 3), red=True)
+    blue_robot = get_robot(battle, (2, 3), blue=True)
+
+    battle.attack(red_robot)
+    battle.attack(red_robot)
+
+    assert blue_robot.hp == 0
+

@@ -56,18 +56,24 @@ def render_deactivated_robots(battle):
             battle.destroy(robot)
 
 
-def render_activated_robot(robot):
-    robot_img = pygame.transform.rotate(
-        ROBOT_IMAGE, robot.facing.index(1) * (-90)
-    )
+def render_activated_robot(battle, robot):
+    if not robot:
+        return
 
-    WIN.blit(
-        robot_img,
-        (
-            robot.position[1] * 100,
-            robot.position[0] * 100
+    if robot.hp:
+        robot_img = pygame.transform.rotate(
+            ROBOT_IMAGE, robot.facing.index(1) * (-90)
         )
-    )
+
+        WIN.blit(
+            robot_img,
+            (
+                robot.position[1] * 100,
+                robot.position[0] * 100
+            )
+        )
+    else:
+        battle.destroy(robot)
 
 
 def render_attack(battle, extra=False):
@@ -87,8 +93,8 @@ def render_attack(battle, extra=False):
 def draw_window(battle, attacks=False):
     WIN.fill(WHITE)
 
-    render_activated_robot(battle.red_robot)
-    render_activated_robot(battle.blue_robot)
+    render_activated_robot(battle, battle.red_robot)
+    render_activated_robot(battle, battle.blue_robot)
     render_deactivated_robots(battle)
     render_items(battle)
 

@@ -76,8 +76,15 @@ class Battle:
     def destroy(self, robot: Robot):
         if isinstance(robot, DeactivatedRobot):
             self.deactivated_robots.pop(self.deactivated_robots.index(robot))
-        self.drop_item(robot.position)
-        logger.info('Deactivated robot has been destroyed.')
+            self.drop_item(robot.position)
+            logger.info('Deactivated robot has been destroyed.')
+        else:
+            if robot.team.name == 'RED':
+                self.red_robot = None
+            else:
+                self.blue_robot = None
+            self.arena.board[robot.position[0]][robot.position[1]] = 0
+            logger.info('%s robot has been destroyed.', robot.team.name)
 
     def drop_item(self, position: Position):
         self.arena.drop_item(position)
@@ -196,5 +203,7 @@ class Battle:
     def _subtract_hp(self, positions: List[Position]):
         all_robots = [*self.deactivated_robots, self.red_robot, self.blue_robot]
         for robot in all_robots:
+            if not robot:
+                continue
             if robot.position in positions:
                 robot.hp -= 1
