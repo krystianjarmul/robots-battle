@@ -6,6 +6,7 @@ class Weapon(Item):
     def __init__(self):
         self.directions: Matrix
         self.range: Matrix
+        self.attack: int = 1
 
     def __eq__(self, other):
         if not isinstance(other, Weapon):
@@ -41,6 +42,7 @@ class Sword(Weapon):
         self.name = 'SWORD'
         self.directions = [[1, 1, 1], [0, 0, 0], [0, 0, 0]]
         self.range = [[1, 1, 1], [0, 0, 0], [0, 0, 0]]
+        self.attack = 2
 
 
 class Explosion(Weapon):

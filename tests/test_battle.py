@@ -231,3 +231,14 @@ def test_activated_robot_is_destroyed_if_its_hp_is_zero():
 
     assert blue_robot.hp == 0
 
+
+def test_sword_attack_subtract_2_hp_from_enemy():
+    battle = Battle()
+    red_robot = get_robot(battle, (3, 3), red=True)
+    red_robot.selected_weapon = weapon.Sword()
+    blue_robot = get_robot(battle, (2, 4), blue=True)
+
+    battle.attack(red_robot)
+
+    assert blue_robot.hp == 0
+

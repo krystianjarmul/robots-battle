@@ -9,6 +9,7 @@ from src.utils import get_turned_matrix, get_shift, is_field_correct, \
 from src.config import logger
 from src import weapon
 from src import body
+from src.weapon import Weapon, Sword
 
 ITEMS = (
     weapon.Sword,
@@ -59,6 +60,7 @@ class Battle:
             )
 
     def attack(self, robot: ActivatedRobot, extra=False):
+        weapon = robot.attack(extra)
         attack_fields = self.get_attack_fields(robot, extra)
 
         attacked_positions = [
@@ -66,7 +68,7 @@ class Battle:
             if self.arena.board[field[0]][field[1]] == 'x'
         ]
 
-        self._subtract_hp(attacked_positions)
+        self._subtract_hp(attacked_positions, weapon)
         logger.info(
             'Robot %s has used %s.',
             robot.team.name,
@@ -200,10 +202,10 @@ class Battle:
         for robot, position in zip(self.deactivated_robots, robots_position):
             robot.position = position
 
-    def _subtract_hp(self, positions: List[Position]):
+    def _subtract_hp(self, positions: List[Position], weapon: Weapon):
         all_robots = [*self.deactivated_robots, self.red_robot, self.blue_robot]
         for robot in all_robots:
             if not robot:
                 continue
             if robot.position in positions:
-                robot.hp -= 1
+                robot.hp -= weapon.attack
