@@ -59,7 +59,6 @@ def test_move_up_successfully():
 
     assert arena.board[1][3] == 'x'
     assert arena.board[2][3] == 0
-    assert dest == (1, 3)
 
 
 def test_move_down_successfully():
@@ -70,7 +69,6 @@ def test_move_down_successfully():
 
     assert arena.board[3][3] == 'x'
     assert arena.board[2][3] == 0
-    assert dest == (3, 3)
 
 
 def test_move_left_successfully():
@@ -81,7 +79,6 @@ def test_move_left_successfully():
 
     assert arena.board[2][2] == 'x'
     assert arena.board[2][3] == 0
-    assert dest == (2, 2)
 
 
 def test_move_right_successfully():
@@ -92,7 +89,6 @@ def test_move_right_successfully():
 
     assert arena.board[2][4] == 'x'
     assert arena.board[2][3] == 0
-    assert dest == (2, 4)
 
 
 def test_move_up_outside_the_board_not_possible():

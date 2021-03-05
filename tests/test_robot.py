@@ -1,5 +1,6 @@
 from src import weapon
 from src import body
+from src.base import Move
 from src.robot import ActivatedRobot, Team, Robot, Direction, DeactivatedRobot
 
 
@@ -214,3 +215,39 @@ def test_switch_from_battle_body_to_another_set_extra_slot_on_false():
     robot.select_body(2)
 
     assert not robot.extra_slot
+
+
+def test_move_up():
+    robot = ActivatedRobot(Team.BLUE)
+    robot.position = (2, 3)
+
+    robot.move(Move.UP)
+
+    assert robot.position == (1, 3)
+
+
+def test_move_down():
+    robot = ActivatedRobot(Team.BLUE)
+    robot.position = (2, 3)
+
+    robot.move(Move.DOWN)
+
+    assert robot.position == (3, 3)
+
+
+def test_move_left():
+    robot = ActivatedRobot(Team.BLUE)
+    robot.position = (2, 3)
+
+    robot.move(Move.LEFT)
+
+    assert robot.position == (2, 2)
+
+
+def test_move_right():
+    robot = ActivatedRobot(Team.BLUE)
+    robot.position = (2, 3)
+
+    robot.move(Move.RIGHT)
+
+    assert robot.position == (2, 4)

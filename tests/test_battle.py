@@ -242,3 +242,37 @@ def test_sword_attack_subtract_2_hp_from_enemy():
 
     assert blue_robot.hp == 0
 
+
+# def test_robot_can_move_successfully():
+#     battle = Battle()
+#     robot = get_robot(battle, (2, 3), red=True)
+#
+#     assert battle.can_move(robot, Move.DOWN)
+
+
+# def test_robot_cannot_move_if_another_robot():
+#     battle = Battle()
+#     robot = get_robot(battle, (2, 3), red=True)
+#     battle.arena.board[3][3] = 'x'
+#
+#     assert not battle.can_move(robot, Move.DOWN)
+
+
+def test_robot_can_move_once_at_round():
+    battle = Battle()
+    robot = get_robot(battle, (2, 3), red=True)
+
+    battle.move(robot, Move.DOWN)
+    battle.move(robot, Move.DOWN)
+
+
+def test_robot_can_attack_once_at_round():
+    battle = Battle()
+
+
+def test_started_robot_is_chosen_randomly():
+    battle = Battle()
+
+
+def test_game_is_over_when_one_of_activated_robot_die():
+    battle = Battle()

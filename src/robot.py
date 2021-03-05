@@ -2,7 +2,7 @@ from typing import List, Optional
 
 from src.body import Body, SimpleBody, BattleBody
 from src.weapon import Weapon, BasicShot, DualLaser, Laser
-from src.base import Team, Direction, Position, Item
+from src.base import Team, Direction, Position, Item, Move
 from src.config import logger
 
 
@@ -44,6 +44,21 @@ class ActivatedRobot(Robot):
 
         elif direction.name == 'WEST':
             self.facing = [0, 0, 0, 1]
+
+    def move(self, move: Move):
+        if move.name == 'UP':
+            self.position = (self.position[0] - 1, self.position[1])
+
+        elif move.name == 'DOWN':
+            self.position = (self.position[0] + 1, self.position[1])
+
+        elif move.name == 'LEFT':
+            self.position = (self.position[0], self.position[1] - 1)
+
+        elif move.name == 'RIGHT':
+            self.position = (self.position[0], self.position[1] + 1)
+
+        logger.info('Robot %s has moved %s.', self.team.name, move.name)
 
     def attack(self, extra=False) -> Weapon:
         if extra:

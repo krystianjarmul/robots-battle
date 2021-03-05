@@ -44,7 +44,7 @@ def render_items(battle):
 
 def render_deactivated_robots(battle):
     for robot in battle.deactivated_robots:
-        if robot.hp:
+        if robot.hp > 0:
             WIN.blit(
                 DEACTIVATED_ROBOT_IMAGE,
                 (

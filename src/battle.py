@@ -23,6 +23,7 @@ ITEMS = (
 
 
 # TODO SUBTRACTING HP BY ACTIVATED ROBOTS
+# TODO LOGGER TURN DECORATOR
 # TODO ROUNDS -> MOVE, TURN, ATTACK, SELECT WEAPON
 
 
@@ -44,9 +45,10 @@ class Battle:
 
     def move(self, robot: ActivatedRobot, move: Move):
         position = robot.position
-        destination, is_item = self.arena.move(position, move)
-        robot.position = destination
-        logger.info('Robot %s has moved %s.', robot.team.name, move.name)
+        can_move, is_item = self.arena.move(position, move)
+        if can_move:
+            robot.move(move)
+
         if is_item:
             self.pick_item(robot)
 
@@ -74,6 +76,7 @@ class Battle:
             robot.team.name,
             robot.selected_weapon.name if not extra else robot.extra_weapon.name
         )
+        print(self.arena.board)
 
     def destroy(self, robot: Robot):
         if isinstance(robot, DeactivatedRobot):

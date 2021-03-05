@@ -26,12 +26,15 @@ class Arena:
         source_y = source[0]
         source_x = source[1]
         is_item = False
+        can_move = True
         if move.name == 'UP':
             destination_y = source_y - 1
             if destination_y < 0:
                 destination_y = 0
+                can_move = False
 
             elif self.board[destination_y][source_x] == 'x':
+                can_move = False
                 destination_y = source_y
 
             elif self.board[destination_y][source_x] == '*':
@@ -42,10 +45,12 @@ class Arena:
         elif move.name == 'DOWN':
             destination_y = source_y + 1
             if destination_y > 5:
+                can_move = False
                 destination_y = 5
 
             elif self.board[destination_y][source_x] == 'x':
                 destination_y = source_y
+                can_move = False
 
             elif self.board[destination_y][source_x] == '*':
                 is_item = True
@@ -56,9 +61,11 @@ class Arena:
             destination_x = source_x - 1
             if destination_x < 0:
                 destination_x = 0
+                can_move = False
 
             elif self.board[source_y][destination_x] == 'x':
                 destination_x = source_x
+                can_move = False
 
             elif self.board[source_y][destination_x] == '*':
                 is_item = True
@@ -69,16 +76,18 @@ class Arena:
             destination_x = source_x + 1
             if destination_x > 5:
                 destination_x = 5
+                can_move = False
 
             elif self.board[source_y][destination_x] == 'x':
                 destination_x = source_x
+                can_move = False
 
             elif self.board[source_y][destination_x] == '*':
                 is_item = True
 
             destination = self._get_destination(source, destination_x, move)
 
-        return destination, is_item
+        return can_move, is_item
 
     def drop_item(self, position: Position):
         self.board[position[0]][position[1]] = '*'
