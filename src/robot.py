@@ -32,7 +32,7 @@ class ActivatedRobot(Robot):
         self.extra_slot: bool = False
         self.extra_weapon: Optional[Weapon] = None
 
-    def turn(self, direction: Direction):
+    def turn(self, direction: Direction, log=True):
         if direction.name == 'NORTH':
             self.facing = [1, 0, 0, 0]
 
@@ -44,6 +44,11 @@ class ActivatedRobot(Robot):
 
         elif direction.name == 'WEST':
             self.facing = [0, 0, 0, 1]
+
+        if log:
+            logger.info(
+                'Robot %s has turned %s.', self.team.name, direction.name
+            )
 
     def move(self, move: Move):
         if move.name == 'UP':
@@ -114,6 +119,7 @@ class ActivatedRobot(Robot):
                     self.team.name,
                     self.selected_body.name
                 )
+
             else:
                 logger.info(
                     '%s is already selected by Robot %s.',

@@ -22,8 +22,7 @@ ITEMS = (
 )
 
 
-# TODO SUBTRACTING HP BY ACTIVATED ROBOTS
-# TODO LOGGER TURN DECORATOR
+# TODO FIX EXTRA WEAPON SELECTION ISSUE
 # TODO ROUNDS -> MOVE, TURN, ATTACK, SELECT WEAPON
 
 
@@ -53,13 +52,7 @@ class Battle:
             self.pick_item(robot)
 
     def turn(self, robot: ActivatedRobot, direction: Direction, log=True):
-        robot.turn(direction)
-        if log:
-            logger.info(
-                'Robot %s has turned %s.',
-                robot.team.name,
-                direction.name
-            )
+        robot.turn(direction, log)
 
     def attack(self, robot: ActivatedRobot, extra=False):
         weapon = robot.attack(extra)
