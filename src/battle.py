@@ -35,6 +35,7 @@ class Battle:
             DeactivatedRobot() for _ in range(8)
         ]
         self.items: List[Item] = []
+        self.has_moved = False
 
     def start(self):
         self.arena.init()
@@ -51,6 +52,7 @@ class Battle:
         can_move, is_item = self.arena.move(position, move)
         if can_move:
             robot.move(move)
+            self.has_moved = True
 
         if is_item:
             self.pick_item(team)

@@ -189,7 +189,7 @@ class Game:
             else:
                 self.battle.select_weapon(team, 4)
 
-    def handle_select_body(self, team,  key):
+    def handle_select_body(self, team, key):
         if key == pygame.K_6:
             self.battle.select_body(team, 0)
 
@@ -209,7 +209,7 @@ class Game:
         clock = pygame.time.Clock()
         self.battle.start()
         run = True
-        team = Team.BLUE
+        team = Team.RED
         while run:
             clock.tick(FPS)
 
@@ -218,7 +218,8 @@ class Game:
                     run = False
 
                 if event.type == pygame.KEYDOWN:
-                    self.handle_movement(team, event.key)
+                    if not self.battle.has_moved:
+                        self.handle_movement(team, event.key)
 
                     self.handle_turning(team, event.key)
 
