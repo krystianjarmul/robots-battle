@@ -20,16 +20,16 @@ class ActivatedRobot(Robot):
 
     def __init__(self, team: Team):
         super().__init__()
-        self.team = team
         self.bodies: List[Body] = [SimpleBody(), ]
         self.weapons: List[Weapon] = [BasicShot(), ]
         self.facing: List[int] = [1, 0, 0, 0]
         self.selected_weapon: Weapon = self.weapons[0]
         self.selected_body: Body = self.bodies[0]
         self.extra_weapon: Optional[Weapon] = None
-        self.hp = 2
         self.extra_slot: bool = False
         self.movement: int = 1
+        self.team = team
+        self.hp = 2
 
     def turn(self, direction: Direction, log=True):
         if direction.name == 'NORTH':

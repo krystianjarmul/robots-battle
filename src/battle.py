@@ -22,7 +22,6 @@ ITEMS = (
 )
 
 
-# TODO FIX EXTRA WEAPON SELECTION ISSUE
 # TODO ROUNDS -> MOVE, TURN, ATTACK, SELECT WEAPON
 
 
@@ -205,5 +204,6 @@ class Battle:
         for robot in all_robots:
             if not robot:
                 continue
+
             if robot.position in positions:
                 robot.hp -= weapon.attack
