@@ -23,14 +23,13 @@ class ActivatedRobot(Robot):
         self.team = team
         self.bodies: List[Body] = [SimpleBody(), ]
         self.weapons: List[Weapon] = [BasicShot(), ]
-        self.movement: int = 1
-        self.hp = 2
-        self.weapon_slots: int = 1
         self.facing: List[int] = [1, 0, 0, 0]
         self.selected_weapon: Weapon = self.weapons[0]
         self.selected_body: Body = self.bodies[0]
-        self.extra_slot: bool = False
         self.extra_weapon: Optional[Weapon] = None
+        self.hp = 2
+        self.extra_slot: bool = False
+        self.movement: int = 1
 
     def turn(self, direction: Direction, log=True):
         if direction.name == 'NORTH':
@@ -149,7 +148,7 @@ class ActivatedRobot(Robot):
             else:
                 logger.info(
                     '%s is already selected by Robot %s.',
-                    self.selected_body.name,
+                    self.selected_weapon.name,
                     self.team.name
                 )
 

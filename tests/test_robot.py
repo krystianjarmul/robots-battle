@@ -17,7 +17,6 @@ def test_robot_at_start_has_default_attributes():
     assert robot.weapons == [weapon.BasicShot(), ]
     assert robot.hp == 2
     assert robot.movement == 1
-    assert robot.weapon_slots == 1
 
 
 def test_robot_turn_right_changes_its_facing():

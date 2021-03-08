@@ -69,18 +69,20 @@ class Battle:
             robot.team.name,
             robot.selected_weapon.name if not extra else robot.extra_weapon.name
         )
-        print(self.arena.board)
 
     def destroy(self, robot: Robot):
         if isinstance(robot, DeactivatedRobot):
             self.deactivated_robots.pop(self.deactivated_robots.index(robot))
             self.drop_item(robot.position)
             logger.info('Deactivated robot has been destroyed.')
+
         else:
             if robot.team.name == 'RED':
                 self.red_robot = None
+
             else:
                 self.blue_robot = None
+
             self.arena.board[robot.position[0]][robot.position[1]] = 0
             logger.info('%s robot has been destroyed.', robot.team.name)
 
