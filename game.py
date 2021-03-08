@@ -3,7 +3,7 @@ import time
 
 import pygame
 
-from src.base import Move, Direction
+from src.base import Move, Direction, Team
 from src.battle import Battle
 
 WIDTH, HEIGHT = 600, 600
@@ -81,9 +81,14 @@ class Game:
         else:
             self.battle.destroy(robot)
 
-    def render_attack(self, extra=False):
-        robot = self.battle.red_robot
-        for field in self.battle.get_attack_fields(robot, extra):
+    def render_attack(self, team: Team, extra=False):
+        if team == Team.RED:
+            robot = self.battle.red_robot
+
+        else:
+            robot = self.battle.blue_robot
+
+        for field in self.battle.get_attack_fields(team, extra):
             WIN.blit(
                 ATTACK_IMAGE,
                 (
@@ -92,6 +97,7 @@ class Game:
                 )
             )
             pygame.display.update()
+
         pygame.time.wait(250)
 
     def draw_window(self, attacks=False):
@@ -104,99 +110,106 @@ class Game:
 
         pygame.display.update()
 
-    def handle_movement(self, key):
+    def handle_movement(self, team: Team, key):
         if key == pygame.K_UP:
-            self.battle.turn(self.battle.red_robot, Direction.NORTH, log=False)
-            self.battle.move(self.battle.red_robot, Move.UP)
+            self.battle.turn(team, Direction.NORTH, log=False)
+            self.battle.move(team, Move.UP)
 
         elif key == pygame.K_DOWN:
-            self.battle.turn(self.battle.red_robot, Direction.SOUTH, log=False)
-            self.battle.move(self.battle.red_robot, Move.DOWN)
+            self.battle.turn(team, Direction.SOUTH, log=False)
+            self.battle.move(team, Move.DOWN)
 
         elif key == pygame.K_LEFT:
-            self.battle.turn(self.battle.red_robot, Direction.WEST, log=False)
-            self.battle.move(self.battle.red_robot, Move.LEFT)
+            self.battle.turn(team, Direction.WEST, log=False)
+            self.battle.move(team, Move.LEFT)
 
         elif key == pygame.K_RIGHT:
-            self.battle.turn(self.battle.red_robot, Direction.EAST, log=False)
-            self.battle.move(self.battle.red_robot, Move.RIGHT)
+            self.battle.turn(team, Direction.EAST, log=False)
+            self.battle.move(team, Move.RIGHT)
 
-    def handle_turning(self, key):
+    def handle_turning(self, team, key):
         if key == pygame.K_w:
-            self.battle.turn(self.battle.red_robot, Direction.NORTH)
+            self.battle.turn(team, Direction.NORTH)
 
         elif key == pygame.K_s:
-            self.battle.turn(self.battle.red_robot, Direction.SOUTH)
+            self.battle.turn(team, Direction.SOUTH)
 
         elif key == pygame.K_a:
-            self.battle.turn(self.battle.red_robot, Direction.WEST)
+            self.battle.turn(team, Direction.WEST)
 
         elif key == pygame.K_d:
-            self.battle.turn(self.battle.red_robot, Direction.EAST)
+            self.battle.turn(team, Direction.EAST)
 
-    def handle_attack(self, key):
+    def handle_attack(self, team, key):
         if key == pygame.K_SPACE:
-            self.battle.attack(self.battle.red_robot)
-            self.render_attack()
+            self.battle.attack(team)
+            self.render_attack(team)
 
         elif key == pygame.K_RETURN:
-            if self.battle.red_robot.extra_slot and self.battle.red_robot.extra_weapon:
-                self.battle.attack(self.battle.red_robot, extra=True)
+            if team.name == 'RED':
+                robot = self.battle.red_robot
+
+            else:
+                robot = self.battle.blue_robot
+
+            if robot.extra_slot and robot.extra_weapon:
+                self.battle.attack(team, extra=True)
                 self.render_attack(extra=True)
 
-    def handle_select_weapon(self, key):
+    def handle_select_weapon(self, team, key):
         mods = pygame.key.get_mods()
 
         if key == pygame.K_1:
             if mods & pygame.KMOD_CTRL:
-                self.battle.select_extra_weapon(self.battle.red_robot, 0)
+                self.battle.select_extra_weapon(team, 0)
             else:
-                self.battle.select_weapon(self.battle.red_robot, 0)
+                self.battle.select_weapon(team, 0)
 
         elif key == pygame.K_2:
             if mods & pygame.KMOD_CTRL:
-                self.battle.select_extra_weapon(self.battle.red_robot, 1)
+                self.battle.select_extra_weapon(team, 1)
             else:
-                self.battle.select_weapon(self.battle.red_robot, 1)
+                self.battle.select_weapon(team, 1)
 
         elif key == pygame.K_3:
             if mods & pygame.KMOD_CTRL:
-                self.battle.select_extra_weapon(self.battle.red_robot, 2)
+                self.battle.select_extra_weapon(team, 2)
             else:
-                self.battle.select_weapon(self.battle.red_robot, 2)
+                self.battle.select_weapon(team, 2)
 
         elif key == pygame.K_4:
             if mods & pygame.KMOD_CTRL:
-                self.battle.select_extra_weapon(self.battle.red_robot, 3)
+                self.battle.select_extra_weapon(team, 3)
             else:
-                self.battle.select_weapon(self.battle.red_robot, 3)
+                self.battle.select_weapon(team, 3)
 
         elif key == pygame.K_5:
             if mods & pygame.KMOD_CTRL:
-                self.battle.select_extra_weapon(self.battle.red_robot, 4)
+                self.battle.select_extra_weapon(team, 4)
             else:
-                self.battle.select_weapon(self.battle.red_robot, 4)
+                self.battle.select_weapon(team, 4)
 
-    def handle_select_body(self, key):
+    def handle_select_body(self, team,  key):
         if key == pygame.K_6:
-            self.battle.select_body(self.battle.red_robot, 0)
+            self.battle.select_body(team, 0)
 
         elif key == pygame.K_7:
-            self.battle.select_body(self.battle.red_robot, 1)
+            self.battle.select_body(team, 1)
 
         elif key == pygame.K_8:
-            self.battle.select_body(self.battle.red_robot, 2)
+            self.battle.select_body(team, 2)
 
         elif key == pygame.K_9:
-            self.battle.select_body(self.battle.red_robot, 3)
+            self.battle.select_body(team, 3)
 
         elif key == pygame.K_0:
-            self.battle.select_body(self.battle.red_robot, 4)
+            self.battle.select_body(team, 4)
 
     def run(self):
         clock = pygame.time.Clock()
         self.battle.start()
         run = True
+        team = Team.BLUE
         while run:
             clock.tick(FPS)
 
@@ -205,15 +218,15 @@ class Game:
                     run = False
 
                 if event.type == pygame.KEYDOWN:
-                    self.handle_movement(event.key)
+                    self.handle_movement(team, event.key)
 
-                    self.handle_turning(event.key)
+                    self.handle_turning(team, event.key)
 
-                    self.handle_attack(event.key)
+                    self.handle_attack(team, event.key)
 
-                    self.handle_select_weapon(event.key)
+                    self.handle_select_weapon(team, event.key)
 
-                    self.handle_select_body(event.key)
+                    self.handle_select_body(team, event.key)
 
             self.draw_window()
 

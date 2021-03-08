@@ -41,21 +41,36 @@ class Battle:
         self._init_robots()
         logger.info('The battle has been started.')
 
-    def move(self, robot: ActivatedRobot, move: Move):
+    def move(self, team: Team, move: Move):
+        if team == Team.RED:
+            robot = self.red_robot
+        else:
+            robot = self.blue_robot
+
         position = robot.position
         can_move, is_item = self.arena.move(position, move)
         if can_move:
             robot.move(move)
 
         if is_item:
-            self.pick_item(robot)
+            self.pick_item(team)
 
-    def turn(self, robot: ActivatedRobot, direction: Direction, log=True):
+    def turn(self, team: Team, direction: Direction, log=True):
+        if team == Team.RED:
+            robot = self.red_robot
+        else:
+            robot = self.blue_robot
+
         robot.turn(direction, log)
 
-    def attack(self, robot: ActivatedRobot, extra=False):
+    def attack(self, team: Team, extra=False):
+        if team == Team.RED:
+            robot = self.red_robot
+        else:
+            robot = self.blue_robot
+
         weapon = robot.attack(extra)
-        attack_fields = self.get_attack_fields(robot, extra)
+        attack_fields = self.get_attack_fields(team, extra)
 
         attacked_positions = [
             field for field in attack_fields
@@ -91,7 +106,12 @@ class Battle:
         item.position = position
         self.items.append(item)
 
-    def pick_item(self, robot: Robot):
+    def pick_item(self, team: Team):
+        if team == Team.RED:
+            robot = self.red_robot
+        else:
+            robot = self.blue_robot
+
         try:
             item = next(
                 item for item in self.items if item.position == robot.position
@@ -108,18 +128,38 @@ class Battle:
         except StopIteration:
             return
 
-    def select_weapon(self, robot: Robot, idx: int):
+    def select_weapon(self, team: Team, idx: int):
+        if team == Team.RED:
+            robot = self.red_robot
+        else:
+            robot = self.blue_robot
+
         robot.select_weapon(idx)
 
-    def select_body(self, robot: Robot, idx: int):
+    def select_body(self, team: Team, idx: int):
+        if team == Team.RED:
+            robot = self.red_robot
+        else:
+            robot = self.blue_robot
+
         robot.select_body(idx)
 
-    def select_extra_weapon(self, robot: Robot, idx: int):
+    def select_extra_weapon(self, team: Team, idx: int):
+        if team == Team.RED:
+            robot = self.red_robot
+        else:
+            robot = self.blue_robot
+
         robot.select_extra_weapon(idx)
 
     def get_attack_fields(
-            self, robot: ActivatedRobot, extra=False
+            self, team: Team, extra=False
     ) -> List[Position]:
+        if team == Team.RED:
+            robot = self.red_robot
+        else:
+            robot = self.blue_robot
+
         weapon = robot.attack(extra)
         facing_idx = robot.facing.index(1)
         weapon_range = get_turned_matrix(weapon.range, facing_idx)
@@ -130,7 +170,7 @@ class Battle:
                 'x_start': robot.position[0] - 1 + row_idx,
                 'y_start': robot.position[1] - 1 + col_idx,
                 'range': weapon_range[row_idx][col_idx],
-                'direction': self._get_attack_direction(robot, row_idx, col_idx)
+                'direction': self._get_attack_direction(team, row_idx, col_idx)
             }
             for row_idx, row in enumerate(weapon_direction)
             for col_idx, col in enumerate(row)
@@ -150,8 +190,13 @@ class Battle:
         return validate_fields(attack_fields)
 
     def _get_attack_direction(
-            self, robot: Robot, row_idx: int, col_idx: int
+            self, team: Team, row_idx: int, col_idx: int
     ) -> Direction:
+        if team == Team.RED:
+            robot = self.red_robot
+        else:
+            robot = self.blue_robot
+
         y_attack_start = robot.position[0] - 1 + row_idx
         x_attack_start = robot.position[1] - 1 + col_idx
         facing_idx = robot.facing.index(1)

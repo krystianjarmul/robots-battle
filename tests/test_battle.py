@@ -46,8 +46,9 @@ def test_move_the_robot():
     battle.red_robot.position = (2, 3)
     battle.arena.board[2][3] = 'x'
     robot = battle.red_robot
+    team = Team.RED
 
-    battle.move(robot, Move.UP)
+    battle.move(team, Move.UP)
 
     assert battle.arena.board[2][3] == 0
     assert battle.arena.board[1][3] == 'x'
@@ -92,8 +93,10 @@ def test_attack_subtract_hp_of_attacked_activated_robot():
     battle = Battle()
     red_robot = get_robot(battle, (3, 3), red=True)
     blue_robot = get_robot(battle, (2, 3), blue=True)
+    team = Team.RED
 
-    battle.attack(red_robot)
+    battle.attack(team)
+
     assert blue_robot.hp == 1
 
 
@@ -129,8 +132,9 @@ def test_attack_subtract_hp_of_attacked_deactivated_robot():
     battle = Battle()
     red_robot = get_robot(battle, (3, 3), red=True)
     deactivated_robot = get_robot(battle, (2, 3))
+    team = Team.RED
 
-    battle.attack(red_robot)
+    battle.attack(team)
 
     assert deactivated_robot.hp == 0
 
@@ -170,9 +174,10 @@ def test_pick_item_weapon_add_it_to_its_weapons():
     random.seed(1)
     battle = Battle()
     robot = get_robot(battle, (2, 4), red=True)
+    team = Team.RED
 
     battle.drop_item((2, 4))
-    battle.pick_item(robot)
+    battle.pick_item(team)
 
     assert len(robot.weapons) == 2
     assert battle.items == []
@@ -183,8 +188,9 @@ def test_pick_item_if_robot_stands_on_items_field():
     battle = Battle()
     robot = get_robot(battle, (2, 3), red=True)
     battle.drop_item((2, 4))
+    team = Team.RED
 
-    battle.move(robot, Move.RIGHT)
+    battle.move(team, Move.RIGHT)
 
     assert battle.red_robot.bodies == [body.SimpleBody(), body.LightBody()]
     assert battle.items == []
@@ -194,8 +200,9 @@ def test_select_weapon_successfully():
     battle = Battle()
     robot = get_robot(battle, (2, 3), red=True)
     robot.weapons.append(weapon.Explosion())
+    team = Team.RED
 
-    battle.select_weapon(robot, 1)
+    battle.select_weapon(team, 1)
 
     assert battle.red_robot.selected_weapon == weapon.Explosion()
 
@@ -204,8 +211,9 @@ def test_select_body_successfully():
     battle = Battle()
     robot = get_robot(battle, (2, 3), red=True)
     robot.bodies.append(body.BattleBody())
+    team = Team.RED
 
-    battle.select_body(robot, 1)
+    battle.select_body(team, 1)
 
     assert battle.red_robot.selected_body == body.BattleBody()
 
@@ -215,8 +223,9 @@ def test_select_extra_weapon_successfully():
     robot = get_robot(battle, (2, 3), red=True)
     robot.pick(weapon.Explosion())
     robot.extra_slot = True
+    team = Team.RED
 
-    battle.select_extra_weapon(robot, 1)
+    battle.select_extra_weapon(team, 1)
 
     assert battle.red_robot.extra_weapon == weapon.Explosion()
 
@@ -225,9 +234,10 @@ def test_activated_robot_is_destroyed_if_its_hp_is_zero():
     battle = Battle()
     red_robot = get_robot(battle, (3, 3), red=True)
     blue_robot = get_robot(battle, (2, 3), blue=True)
+    team = Team.RED
 
-    battle.attack(red_robot)
-    battle.attack(red_robot)
+    battle.attack(team)
+    battle.attack(team)
 
     assert blue_robot.hp == 0
 
@@ -237,8 +247,9 @@ def test_sword_attack_subtract_2_hp_from_enemy():
     red_robot = get_robot(battle, (3, 3), red=True)
     red_robot.selected_weapon = weapon.Sword()
     blue_robot = get_robot(battle, (2, 4), blue=True)
+    team = Team.RED
 
-    battle.attack(red_robot)
+    battle.attack(team)
 
     assert blue_robot.hp == 0
 
@@ -246,15 +257,14 @@ def test_sword_attack_subtract_2_hp_from_enemy():
 def test_robot_can_move_once_at_round():
     battle = Battle()
     robot = get_robot(battle, (2, 3), red=True)
+    team = Team.RED
 
-    battle.move(robot, Move.DOWN)
-    battle.move(robot, Move.DOWN)
+    battle.move(team, Move.DOWN)
+    battle.move(team, Move.DOWN)
 
 
 def test_robot_can_attack_once_at_round():
     battle = Battle()
-
-    assert currenty
 
 
 def test_started_robot_is_chosen_randomly():
