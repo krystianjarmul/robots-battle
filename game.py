@@ -34,8 +34,6 @@ ITEM_IMAGE = pygame.image.load(
 class Game:
 
     def __init__(self):
-        self.has_moved = False
-        self.has_attacked = False
         self.battle = Battle()
 
     def render_items(self):
@@ -209,27 +207,34 @@ class Game:
         clock = pygame.time.Clock()
         self.battle.start()
         run = True
-        team = Team.RED
+
         while run:
             clock.tick(FPS)
+            for team in Team:
+                if not self.battle.blue_robot.hp or not self.battle.red_robot.hp:
+                    break
+                self.battle.has_attacked = False
+                self.battle.has_moved = False
+                while run and not self.battle.has_attacked:
 
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    run = False
+                    for event in pygame.event.get():
+                        if event.type == pygame.QUIT:
+                            run = False
 
-                if event.type == pygame.KEYDOWN:
-                    if not self.battle.has_moved:
-                        self.handle_movement(team, event.key)
+                        if event.type == pygame.KEYDOWN:
+                            if not self.battle.has_moved:
+                                self.handle_movement(team, event.key)
 
-                    self.handle_turning(team, event.key)
+                            self.handle_turning(team, event.key)
 
-                    self.handle_attack(team, event.key)
+                            if not self.battle.has_attacked:
+                                self.handle_attack(team, event.key)
 
-                    self.handle_select_weapon(team, event.key)
+                            self.handle_select_weapon(team, event.key)
 
-                    self.handle_select_body(team, event.key)
+                            self.handle_select_body(team, event.key)
 
-            self.draw_window()
+                    self.draw_window()
 
         pygame.quit()
 

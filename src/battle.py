@@ -36,6 +36,7 @@ class Battle:
         ]
         self.items: List[Item] = []
         self.has_moved = False
+        self.has_attacked = False
 
     def start(self):
         self.arena.init()
@@ -43,10 +44,7 @@ class Battle:
         logger.info('The battle has been started.')
 
     def move(self, team: Team, move: Move):
-        if team == Team.RED:
-            robot = self.red_robot
-        else:
-            robot = self.blue_robot
+        robot = self._get_robot(team)
 
         position = robot.position
         can_move, is_item = self.arena.move(position, move)
@@ -58,18 +56,12 @@ class Battle:
             self.pick_item(team)
 
     def turn(self, team: Team, direction: Direction, log=True):
-        if team == Team.RED:
-            robot = self.red_robot
-        else:
-            robot = self.blue_robot
+        robot = self._get_robot(team)
 
         robot.turn(direction, log)
 
     def attack(self, team: Team, extra=False):
-        if team == Team.RED:
-            robot = self.red_robot
-        else:
-            robot = self.blue_robot
+        robot = self._get_robot(team)
 
         weapon = robot.attack(extra)
         attack_fields = self.get_attack_fields(team, extra)
@@ -80,6 +72,7 @@ class Battle:
         ]
 
         self._subtract_hp(attacked_positions, weapon)
+        self.has_attacked = True
         logger.info(
             'Robot %s has used %s.',
             robot.team.name,
@@ -109,10 +102,7 @@ class Battle:
         self.items.append(item)
 
     def pick_item(self, team: Team):
-        if team == Team.RED:
-            robot = self.red_robot
-        else:
-            robot = self.blue_robot
+        robot = self._get_robot(team)
 
         try:
             item = next(
@@ -131,36 +121,24 @@ class Battle:
             return
 
     def select_weapon(self, team: Team, idx: int):
-        if team == Team.RED:
-            robot = self.red_robot
-        else:
-            robot = self.blue_robot
+        robot = self._get_robot(team)
 
         robot.select_weapon(idx)
 
     def select_body(self, team: Team, idx: int):
-        if team == Team.RED:
-            robot = self.red_robot
-        else:
-            robot = self.blue_robot
+        robot = self._get_robot(team)
 
         robot.select_body(idx)
 
     def select_extra_weapon(self, team: Team, idx: int):
-        if team == Team.RED:
-            robot = self.red_robot
-        else:
-            robot = self.blue_robot
+        robot = self._get_robot(team)
 
         robot.select_extra_weapon(idx)
 
     def get_attack_fields(
             self, team: Team, extra=False
     ) -> List[Position]:
-        if team == Team.RED:
-            robot = self.red_robot
-        else:
-            robot = self.blue_robot
+        robot = self._get_robot(team)
 
         weapon = robot.attack(extra)
         facing_idx = robot.facing.index(1)
@@ -194,10 +172,7 @@ class Battle:
     def _get_attack_direction(
             self, team: Team, row_idx: int, col_idx: int
     ) -> Direction:
-        if team == Team.RED:
-            robot = self.red_robot
-        else:
-            robot = self.blue_robot
+        robot = self._get_robot(team)
 
         y_attack_start = robot.position[0] - 1 + row_idx
         x_attack_start = robot.position[1] - 1 + col_idx
@@ -254,3 +229,9 @@ class Battle:
 
             if robot.position in positions:
                 robot.hp -= weapon.attack
+
+    def _get_robot(self, team: Team) -> Robot:
+        if team == Team.RED:
+            return self.red_robot
+        else:
+            return self.blue_robot

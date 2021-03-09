@@ -273,3 +273,13 @@ def test_started_robot_is_chosen_randomly():
 
 def test_game_is_over_when_one_of_activated_robot_die():
     battle = Battle()
+
+
+def test_get_robot_depended_of_team():
+    battle = Battle()
+
+    red_robot = battle._get_robot(Team.RED)
+    blue_robot = battle._get_robot(Team.BLUE)
+
+    assert red_robot == battle.red_robot
+    assert blue_robot == battle.blue_robot
